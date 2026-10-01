@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thực thi cài đặt — HTML Wireframe</title>
+<style>
+  :root{--primary:#212936;--secondary:#A91D3A;--canvas:#eff3f8;--border:#e2e8f0;--text:#1e293b;--text-sub:#8ca4c7;--font:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;font-family:var(--font);color:var(--text);}
+  .layout{display:flex;height:100%;}
+  .toc{width:280px;background:var(--primary);color:#fff;flex-shrink:0;overflow:auto;padding:16px 0;}
+  .toc h1{font-size:15px;padding:0 16px 12px;margin:0;border-bottom:1px solid rgba(255,255,255,.1);}
+  .toc .flow-name{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--secondary);font-weight:700;padding:16px 16px 4px;}
+  .toc a{display:block;color:#fff;opacity:.85;text-decoration:none;font-size:13px;padding:6px 16px 6px 28px;cursor:pointer;}
+  .toc a:hover, .toc a.active{opacity:1;background:rgba(255,255,255,.08);font-weight:600;}
+  .toc a.overview-link{padding-left:16px;font-weight:700;opacity:1;}
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .tabbar{height:44px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;background:#fff;font-size:13px;color:var(--text-sub);}
+  iframe{flex:1;border:none;width:100%;}
+  .overview{padding:24px;overflow:auto;}
+  .overview table{border-collapse:collapse;width:100%;max-width:900px;font-size:13px;}
+  .overview th,.overview td{border:1px solid var(--border);padding:8px 12px;text-align:left;}
+  .overview th{background:#f8fafc;}
+  .overview tr{cursor:pointer;}
+  .overview tr:hover{background:#f1f5f9;}
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc">
+    <h1>Thực thi cài đặt</h1>
+    <a class="overview-link" onclick="showOverview()">▤ Tổng quan</a>
+
+    <div class="flow-name">thuc-thi-cai-dat-flow</div>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s1', this)">1. Danh sách thực thi cài đặt</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s2', this)">2. Tạo thực thi cài đặt (Theo SPMM)</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s2b', this)">2 (Trải phẳng). Tạo thực thi cài đặt</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s2i', this)">2i. Hover icon ⓘ (popover)</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s3', this)">2-1. Nhập hàng loạt Serial</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s4', this)">2-2. Áp dụng thông số hàng loạt</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s5', this)">2-2b. Xác nhận áp dụng thông số</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s6', this)">2-2c. Áp dụng Firmware</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s7', this)">2-3. Nhập nhanh người thụ hưởng</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s8', this)">2-4. Nhập từ Excel (bước 1)</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s8b', this)">2-4. Nhập từ Excel (bước 2)</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s9', this)">2-5. Không thể hoàn thành</a>
+    <a onclick="loadFrame('thuc-thi-cai-dat-flow.html#s11', this)">2-6. Xác nhận cài đặt lại</a>
+
+    <div class="flow-name">tra-cuu-sua-thuc-thi-cai-dat-flow</div>
+    <a onclick="loadFrame('tra-cuu-sua-thuc-thi-cai-dat-flow.html#s1', this)">1. Danh sách (dùng chung)</a>
+    <a onclick="loadFrame('tra-cuu-sua-thuc-thi-cai-dat-flow.html#s10', this)">3. Chi tiết thực thi cài đặt</a>
+  </nav>
+  <div class="main">
+    <div class="tabbar" id="tabbar">Tổng quan</div>
+    <div class="overview" id="overview">
+      <p>Click 1 flow bên dưới để mở, hoặc chọn màn hình ở sidebar bên trái.</p>
+      <table>
+        <tr><th>Flow</th><th>Tên flow</th><th>Số màn hình</th></tr>
+        <tr onclick="loadFrame('thuc-thi-cai-dat-flow.html#s1', null)"><td>thuc-thi-cai-dat-flow</td><td>Ghi nhận thực thi cài đặt</td><td>10</td></tr>
+        <tr onclick="loadFrame('tra-cuu-sua-thuc-thi-cai-dat-flow.html#s10', null)"><td>tra-cuu-sua-thuc-thi-cai-dat-flow</td><td>Tra cứu thực thi cài đặt</td><td>2 (1 dùng chung)</td></tr>
+      </table>
+    </div>
+    <iframe id="frame" style="display:none;"></iframe>
+  </div>
+</div>
+<script>
+  function showOverview(){
+    document.getElementById('overview').style.display='block';
+    document.getElementById('frame').style.display='none';
+    document.getElementById('tabbar').textContent='Tổng quan';
+    document.querySelectorAll('.toc a').forEach(a=>a.classList.remove('active'));
+  }
+  function loadFrame(src, el){
+    document.getElementById('overview').style.display='none';
+    var f = document.getElementById('frame');
+    f.style.display='block';
+    f.src = src;
+    document.getElementById('tabbar').textContent = src;
+    document.querySelectorAll('.toc a').forEach(a=>a.classList.remove('active'));
+    if(el) el.classList.add('active');
+  }
+</script>
+</body>
+</html>

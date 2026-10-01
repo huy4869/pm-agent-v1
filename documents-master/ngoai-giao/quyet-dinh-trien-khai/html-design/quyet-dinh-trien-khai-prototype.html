@@ -1,0 +1,2247 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quyết định triển khai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeicons@6/primeicons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--primary:#212936;--text:#1e293b;--text-sub:#8ca4c7;--border:#616161;--border-table:#e2e8f0;--bg-body:#eff3f8;--bg-card:#ffffff;--bg-th:#f8fafc;--radius:3.5px;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-body);font-family:"Be Vietnam Pro",Arial,"Segoe UI",sans-serif;font-size:14px;color:var(--text)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid #2563eb;outline-offset:1px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+.page{padding:0.5rem}
+.card{max-width:1504px;margin:0 auto;background:#fff}
+.crumb{display:none} /* thay bằng breadcrumb chung ở .topbar, tránh lặp 2 dòng breadcrumb */
+.head{padding:0.75rem 0;border-bottom:1px solid var(--border-table);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.toolbar-row{display:flex;align-items:center;padding:0 0 4px;gap:8px}
+.toolbar-row .spacer{flex:1}
+.colpick{position:relative;display:inline-block}
+.colpick-btn{height:32px;padding:0 10px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;font-family:inherit;font-size:12.6px;color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:8px;width:190px;justify-content:space-between}
+.colpick-arrow{font-size:10px;color:#64748b}
+.colpick-panel{display:none;position:absolute;top:calc(100% + 4px);left:0;width:230px;background:#fff;border:1px solid var(--border-table);border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.14);z-index:50;padding:8px}
+.colpick-panel.show{display:block}
+.colpick-search{display:flex;align-items:center;gap:6px;border:1px solid var(--border-table);border-radius:var(--radius);padding:0 8px;height:32px;margin-bottom:6px}
+.colpick-search input{border:none;outline:none;flex:1;font-family:inherit;font-size:13px;height:100%;min-width:0}
+.colpick-search-ico{color:#94a3b8;font-size:12px}
+.colpick-clear{color:#94a3b8;cursor:pointer;font-size:14px;line-height:1}
+.colpick-list{max-height:220px;overflow-y:auto}
+.colpick-list label{display:flex;align-items:center;gap:8px;padding:5px 4px;font-size:13px;color:var(--text);cursor:pointer;border-radius:3px}
+.colpick-list label:hover{background:var(--bg-th)}
+.colpick-list input[type=checkbox]{accent-color:var(--primary);width:15px;height:15px}
+.fpick{display:block;width:100%}
+.fpick-btn{width:100%;height:26px;border:1px solid #cbd5e1;font-size:12px;padding:0 6px;color:#64748b;justify-content:flex-start}
+.fpick .colpick-panel{width:100%;min-width:210px}
+.title{font-size:21px;font-weight:700;color:var(--text)}
+.tools{display:flex;gap:8px;align-items:center}
+.btn{height:32px;padding:0 17.5px;border-radius:var(--radius);border:1px solid var(--primary);background:var(--primary);color:#fff;font-weight:600;font-size:14px;cursor:pointer}
+.btn.outline{background:#fff;color:var(--primary)}
+.btn.plain{background:#fff;color:#334155;border-color:#cbd5e1}
+.btn.success{background:#22C55E;border-color:#22C55E}
+.btn.danger{background:#EF4444;border-color:#EF4444}
+.btn.sm{height:32px;font-size:12.25px;padding:0 15.3px}
+.btn:disabled{background:#f1f5f9;color:#94a3b8;border-color:#cbd5e1;cursor:not-allowed}
+.section{border:1px solid var(--border-table);border-radius:var(--radius);margin-top:0.5rem;overflow:hidden}
+.sh{height:36px;background:var(--bg-th);border-bottom:1px solid var(--border-table);display:flex;align-items:center;padding:0 10px;font-weight:700;font-size:17.5px;color:#334155;cursor:pointer;gap:7px;justify-content:space-between}
+.sh .left{display:flex;align-items:center;gap:7px}
+.chev{font-size:14px;color:#334155;transition:transform .15s}
+.collapsed .chev{transform:rotate(-90deg)}
+.sbody{padding:14px}
+.collapsed .sbody{display:none}
+.status{display:inline-flex;align-items:center;gap:5px;height:21px;min-width:8rem;justify-content:center;padding:0 8px;border-radius:2px;font-size:11.2px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;color:#fff}
+.status .pi{font-size:11px}
+.status-dutha{background:#059bb4}.status-daduyet{background:#1da750}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media (max-width:768px){.grid4{grid-template-columns:repeat(2,1fr)}}
+.field label{display:block;font-weight:500;margin-bottom:6px;font-size:14px;color:var(--text)}
+.field label .req,th .req{color:#ff4d4f;margin-right:2px}
+.field .hint{font-size:11.2px;color:var(--text-sub);margin-top:4px}
+.input,select.input,textarea.input{width:100%;height:38px;border:1px solid var(--border);border-radius:var(--radius);padding:0 10.5px;font-family:inherit;font-size:14px;color:var(--text);background:#fff}
+textarea.input{height:70px;padding:9px;resize:vertical}
+.input[readonly]{background:#ffffff;color:var(--text);cursor:not-allowed}
+.input:disabled{background:#f3f4f6;color:var(--text);-webkit-text-fill-color:var(--text);opacity:1;cursor:not-allowed}
+.span2{grid-column:span 2}
+.span4{grid-column:1/-1}
+.readonly-block{background:#fff;border:1px solid var(--border-table);border-radius:var(--radius);padding:8px 10px;font-size:14px;color:var(--text)}
+.attach{margin-top:12px;border:1px solid var(--border-table);border-radius:var(--radius);overflow:hidden}
+.attach-head{padding:10px 12px;background:var(--bg-th);font-weight:700;display:flex;align-items:center}
+.attach-btn{height:32px;padding:0 8px 0 12px;background:var(--primary);border-radius:var(--radius);color:#fff;display:inline-flex;align-items:center;gap:8px;font-size:12.25px;font-weight:600;border:none;cursor:pointer}
+.attach-btn:disabled{background:#f1f5f9;color:#94a3b8;cursor:default}
+.badge-count{background:#fff;color:var(--primary);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700}
+.attach-hint{color:#c2410c;font-size:11.9px;margin-top:8px}
+.tablebar{display:flex;gap:8px;padding:8px 0;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tablebar .left-tools{display:flex;gap:8px}
+.viewpick{display:flex;align-items:center;gap:10px}
+.viewpick-label{font-size:12.25px;color:#64748b}
+.viewswitch{width:272px;height:32px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:0 10px;font-family:inherit;font-size:12.25px;color:var(--text)}
+.wrap{overflow-x:auto}
+table.detail{width:100%;border-collapse:collapse;min-width:1120px}
+table.detail-main{table-layout:fixed}
+table.detail-main td,table.detail-main th{overflow:hidden}
+table.detail-main select.input,table.detail-main input.input{width:100%;box-sizing:border-box}
+table.detail th{background:#f8fafc;text-align:left;padding:2.8px 8px;height:36px;font-weight:600;border:none;border-bottom:1px solid var(--border-table);white-space:nowrap;color:#334155}
+table.detail td{padding:0 8px;height:36px;border:none;border-bottom:1px solid var(--border-table);vertical-align:middle;background:#fff}
+table.detail.locked td{color:#334155}
+table.detail .filter-row td{height:34.3px;background:#f8fafc;padding:3px 6px;border-bottom:1px solid var(--border-table)}
+table.detail .filter-row select{width:100%;height:26px;border:1px solid #cbd5e1;border-radius:var(--radius);font-size:12px;padding:0 6px;font-family:inherit;color:#64748b;background:#fff}
+.tag-mini{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;border-radius:2px;padding:2px 6px;margin-right:5px;white-space:nowrap}
+.tag-nguon{background:#fee2e2;color:#b91c1c}
+.tag-dich{background:#dcfce7;color:#15803d}
+.tag-icon{font-size:11px;line-height:1}
+.selbar{display:flex;align-items:center;gap:12px;padding:8px 0;font-size:13px;color:#334155}
+.sel-clear{color:#2563eb;cursor:pointer;font-size:12.6px}
+tr.row-selected td{background:#eff6ff}
+.detail-foot{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.detail-summary{font-size:12.6px;color:#64748b}
+.edit-row td{background:#fffbeb;padding:4px 6px}
+.edit-row select.input.sm,.edit-row input.input.sm{height:30px}
+.qty-edit-input{width:100px;text-align:right}
+.input.linkfield{background:#f3f4f6;color:#2563eb;cursor:pointer;text-decoration:underline}
+td.num,th.num{text-align:right}
+table.detail td.num input{text-align:right}
+.qty-warn{color:#b91c1c;font-size:11px;margin-top:2px;white-space:nowrap}
+.net-warn{color:#b91c1c;font-weight:700}
+.bulk-picklist{max-height:190px;overflow-y:auto;border:1px solid var(--border-table);border-radius:var(--radius);padding:6px 8px}
+.bulk-picklist label{display:flex;align-items:center;gap:8px;padding:4px 2px;font-size:13px;cursor:pointer;border-radius:3px}
+.bulk-picklist label:hover{background:var(--bg-th)}
+.bulk-picklist label.dim{opacity:.45;cursor:not-allowed}
+.mpick{display:block;width:100%}
+.mpick .colpick-btn{width:100%}
+.mpick .colpick-panel{width:100%;min-width:240px}
+.bulk-gridbar{display:flex;align-items:center;gap:12px;margin:6px 0}
+.bulk-onlyfilled{display:flex;align-items:center;gap:6px;font-size:12.6px;color:#64748b;cursor:pointer}
+.bulk-onlyfilled input{accent-color:var(--primary);width:15px;height:15px}
+.bulk-gridwrap{max-height:290px;overflow-y:auto;border:1px solid var(--border-table);border-radius:var(--radius)}
+.bulk-gridwrap thead th{position:sticky;top:0;z-index:2;background:#f8fafc;box-shadow:inset 0 -1px 0 var(--border-table)}
+.bulk-spmm-cell,.spmm-cell{display:block;max-width:222px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bulk-grid-chk{accent-color:var(--primary);width:15px;height:15px}
+.field-error{border-color:#ef4444!important;background:#fef2f2}
+.modal-errbanner{margin:10px 20px 0;flex:0 0 auto}
+.errlist{margin:4px 0 0;padding-left:18px}
+.errlist li{margin:1px 0}
+.errmore{margin-top:3px;opacity:.85}
+.bulk-picklist input[type=checkbox]{accent-color:var(--primary);width:15px;height:15px}
+.qty-diff{font-size:11px;color:#64748b;margin-top:2px}
+.qty-diff .old{text-decoration:line-through;color:#94a3b8}
+.qty-diff .new{font-weight:700;color:#1e293b}
+.link-cell{color:#2563eb;cursor:pointer}
+.sl-changed{color:#af1c0c;font-weight:700;cursor:pointer;text-decoration:underline dotted}
+.link-disabled{color:#94a3b8;cursor:not-allowed;text-decoration:underline dotted}
+.icon-del{color:#ef4444;cursor:pointer;font-weight:700;text-align:center}
+.empty-hint{text-align:center;color:#8ca4c7;padding:28px;font-size:14px}
+.muted{color:#94a3b8}
+.group-row{cursor:pointer;font-size:14px}
+.group-row td{padding:8px 10px;height:auto;background:#fff;font-weight:600;color:#1e293b}
+.grp-chev{display:inline-block;margin-right:6px;width:12px;font-weight:700;color:#64748b}
+.row-invalid td{background:#fee2e2!important;box-shadow:inset 0 -1px 0 #fca5a5}
+.row-invalid td:first-child{box-shadow:inset 3px 0 0 #ef4444, inset 0 -1px 0 #fca5a5}
+.mismatch{color:#b91c1c;font-weight:700;margin-right:4px}
+/* modal */
+.modalbg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:1000}
+.modalbg.show{display:flex}
+.modal{width:min(760px,94vw);background:#fff;border-radius:6px;overflow:hidden;max-height:90vh;display:flex;flex-direction:column}
+.modal.wide{width:min(1080px,96vw)}
+.mh{padding:16px 20px;border-bottom:1px solid var(--border-table);display:flex;align-items:center;font-weight:700;font-size:17px}
+.mh .close{margin-left:auto;border:0;background:none;font-size:20px;cursor:pointer;color:#64748b}
+.mb{padding:18px 20px;overflow-y:auto}
+.mf{padding:12px 20px;border-top:1px solid var(--border-table);display:flex;justify-content:flex-end;gap:8px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.readonly-mini{background:#f8fafc;border:1px solid var(--border-table);border-radius:var(--radius);padding:8px 10px;font-size:12.6px;color:#334155;margin:8px 0}
+.warn{background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--radius);padding:9px 10px;font-size:12.6px;color:#9a3412;margin-top:8px}
+.impok{background:#f0fdf4;border:1px solid #86efac;border-radius:var(--radius);padding:9px 10px;font-size:12.6px;color:#166534;margin-top:8px}
+.filecard.has-file{border-style:solid;border-color:#2563eb;color:#1e293b}
+.rowgap{margin-bottom:14px}
+.batch-table td,.batch-table th{font-size:13px}
+.filecard{border:1px dashed #94a3b8;border-radius:var(--radius);padding:20px;text-align:center;color:#6b7280;cursor:pointer}
+.tpl-link{color:#2563eb;cursor:pointer;font-size:13px}
+.radio-inline{display:flex;align-items:center;gap:18px;margin:8px 0;font-size:14px}
+.radio-inline label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.input.sm{height:32px;font-size:12.6px;padding:0 8px}
+select.input.sm{padding-right:6px}
+
+/* ===== App shell: sidebar + breadcrumb, khớp design.md Mục 8.1/8.2 (chỉ tham khảo phong cách — KHÔNG đổi cột/dữ liệu SRS) ===== */
+.app-shell{display:flex;min-height:100vh}
+.sidebar{width:252px;flex:0 0 252px;background:#212936;height:100vh;position:sticky;top:0;display:flex;flex-direction:column;overflow:hidden}
+.sidebar-header{margin:0.5rem 0;padding:0 1rem;display:flex;align-items:center;justify-content:space-between}
+.sidebar-logo{color:#fff;font-weight:800;font-size:19.6px;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.sidebar-logo .badge-flag{width:22px;height:15px;background:#da251d;border-radius:2px;display:inline-block}
+.sidebar-header .hdr-icons{display:flex;align-items:center;gap:10px;color:#fff;font-size:14px;opacity:.85}
+.sidebar-header .hdr-icons span{position:relative;display:inline-flex}
+.bell-badge{position:absolute;top:-5px;right:-7px;background:#d9342b;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.flag-icon{width:18px;height:12px;background:#da251d;border-radius:1px;display:inline-block}
+.sidebar-user{margin:0 0 14px 1rem;padding:1rem;border-radius:0.5rem 0 0 0.5rem;background:linear-gradient(to right,#b5404d,#af1c0c);display:flex;align-items:center;gap:10px}
+.sidebar-user .avatar{width:36px;height:36px;border-radius:50%;background:#fff;color:#af1c0c;display:flex;align-items:center;justify-content:center;font-size:16px;position:relative;flex:0 0 36px}
+.sidebar-user .avatar::after{content:'';position:absolute;right:-2px;bottom:-2px;width:10px;height:10px;border-radius:50%;background:#22c55e;border:2px solid #fff}
+.sidebar-user .uname{color:#fff;font-weight:700;font-size:17.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-menu{flex:1;overflow-y:auto;padding-bottom:10px}
+.menu-group{padding:0.5rem 0.5rem 0.5rem 1rem;display:flex;align-items:center;gap:0.5rem;color:#fff;font-size:1.1rem;cursor:pointer;user-select:none}
+.menu-group .mi{color:#A91D3A;font-size:0.9rem;width:16px;text-align:center;flex:0 0 auto}
+.menu-group .ml{flex:1}
+.menu-group .chev{margin-left:auto;font-size:11px;transition:transform .15s}
+.menu-group .chev.open{transform:rotate(-180deg)}
+.menu-children{display:none}
+.menu-children.open{display:block}
+.menu-item{padding:7px 7px 7px 2.75rem;display:flex;align-items:center;gap:0.5rem;color:#fff;font-size:1rem;cursor:pointer;white-space:nowrap}
+.menu-item .mi2{color:#A91D3A;font-size:1rem;flex:0 0 auto}
+.menu-item:hover,.menu-group:hover{background:rgba(255,255,255,.1)}
+.menu-item.active-route{background:linear-gradient(to right,#af1c0c,#b5404d);font-weight:600}
+.sidebar-footer{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.1)}
+.sidebar-footer .ver{color:#8ca4c7;font-size:0.7rem;font-weight:600}
+.sidebar-footer .foot-icons{display:flex;gap:8px}
+.sidebar-footer .foot-icons span{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;cursor:pointer}
+.main-area{flex:1;min-width:0;display:flex;flex-direction:column;height:100vh}
+.topbar{min-height:35px;display:flex;align-items:center;padding:0 14px;gap:6px;background:#fff;border-bottom:1px solid var(--border-table);flex:0 0 auto}
+.topbar .hbtn,.topbar .backbtn,.topbar .logoutbtn{width:35px;height:35px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;font-size:15px;background:none;border:none}
+.topbar .hbtn:hover,.topbar .backbtn:hover,.topbar .logoutbtn:hover{background:var(--bg-th)}
+.crumbtrail{display:flex;align-items:center;gap:0.3rem;margin-left:4px}
+.crumbtrail .ci{color:#A91D3A;font-size:1.25rem;cursor:default;display:inline-flex}
+.crumbtrail .ci.mid{font-size:1rem}
+.crumbtrail .sep{color:#94a3b8;font-size:14px}
+.crumbtrail .last{font-size:1.4rem;font-weight:600;color:#334155}
+.topbar .spacer{flex:1}
+.topbar .searchbtn{height:32px;padding:0 10px;border:none;background:none;color:#8ca4c7;font-size:12.6px;font-family:inherit;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border-radius:var(--radius)}
+.topbar .searchbtn:hover{background:var(--bg-th)}
+.topbar .searchbtn .kbd{color:#c2ccd6}
+.content-scroll{background:#fff;flex:1;overflow:auto}
+
+/* ===== Prototype shell: multi-screen show/hide + quick-jump nav ===== */
+.screen{display:none}
+.screen.active{display:block}
+.protobar{position:fixed;top:10px;right:10px;z-index:900;background:var(--primary);color:#fff;border-radius:var(--radius);padding:7px 10px;display:flex;align-items:center;gap:8px;font-size:12.25px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.protobar select{height:26px;border-radius:3px;border:none;font-family:inherit;font-size:12px;padding:0 6px}
+.protobar .lbl{opacity:.75}
+
+/* ===== Banners ===== */
+.banner{border-radius:var(--radius);padding:10px 12px;font-size:12.6px;margin-bottom:10px;display:flex;gap:8px;align-items:flex-start}
+.banner-warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
+.banner-danger{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.banner-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a}
+.banner b{font-weight:700}
+
+/* ===== ds-qdtk list table (Mục 9.2 — khác lưới phiếu Mục 9.3) ===== */
+table.list{width:100%;border-collapse:collapse;min-width:1180px}
+table.list th{background:#f8fafc;text-align:left;padding:2.8px 8px;height:25.6px;font-weight:600;border:1px solid var(--border-table);white-space:nowrap;color:#334155}
+table.list th .sort{color:#94a3b8;margin-left:4px;font-size:11px}
+table.list td{padding:0 8px;height:22px;border:1px solid var(--border-table);vertical-align:middle;font-size:13px}
+table.list tbody tr:nth-child(odd) td{background:#fff}
+table.list tbody tr:nth-child(even) td{background:#fbfdff}
+table.list tbody tr:hover td{background:#f1f5f9}
+table.list .filter-row td{height:34.3px;background:#f1f5f9}
+table.list .filter-row select,table.list .filter-row input{width:100%;height:26px;border:1px solid #cbd5e1;border-radius:var(--radius);font-size:12px;padding:0 6px;font-family:inherit}
+.actioncell{display:flex;gap:6px;justify-content:flex-start}
+.icon-btn{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#64748b;background:none;border:none}
+.icon-btn:hover{background:#f1f5f9}
+.icon-btn.del{color:#ef4444}
+.pager{display:flex;justify-content:center;gap:10px;padding:12px 0;font-size:12.6px;color:#64748b}
+
+/* ===== Mô phỏng chức năng QĐGCTKH (ngoài phạm vi feature QĐTK) ===== */
+.banner-sim{background:#f5f3ff;border:1px solid #ddd6fe;color:#5b21b6}
+.tabbar{display:flex;gap:4px;border-bottom:1px solid var(--border-table);margin-bottom:14px}
+.tab{padding:9px 16px;border:none;background:none;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;border-bottom:2px solid transparent;font-family:inherit}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tabpanel{display:none}
+.tabpanel.active{display:block}
+.version-item{border-left:2px solid var(--border-table);padding-left:16px;margin-bottom:4px;position:relative}
+.version-item::before{content:'';position:absolute;left:-5px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.version-item.origin::before{background:#94a3b8}
+.version-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;cursor:pointer;padding:6px 0}
+.version-chev{width:12px;font-weight:700;color:#334155}
+.version-badge{background:var(--primary);color:#fff;font-size:11.2px;font-weight:700;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.version-item.origin .version-badge{background:#94a3b8}
+.version-src{font-size:13px;color:#334155}
+.version-date{margin-left:auto;font-size:11.2px;color:#94a3b8;white-space:nowrap}
+.version-desc{font-size:12.6px;color:#64748b;padding-left:22px;margin-bottom:8px}
+.version-body{display:none;padding:0 0 14px 22px}
+.version-body.open{display:block}
+.group-badge{display:inline-flex;align-items:center;gap:3px;background:#eef2ff;color:#4338ca;font-size:11px;font-weight:700;border-radius:2px;padding:2px 7px;cursor:pointer;white-space:nowrap}
+.group-flash{background:#fef9c3!important}
+</style></head><body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo"><span class="badge-flag"></span>BCY</div>
+      <div class="hdr-icons"><span title="Thông báo"><i class="fa-regular fa-bell"></i><span class="bell-badge">3</span></span><span title="Ngôn ngữ" class="flag-icon"></span></div>
+    </div>
+    <div class="sidebar-user">
+      <div class="avatar"><i class="pi pi-user"></i></div>
+      <div class="uname">Nguyễn Thị M...</div>
+    </div>
+    <nav class="sidebar-menu">
+      <div class="menu-group"><i class="pi pi-cog mi"></i><span class="ml">Cấu hình hệ thống</span><i class="pi pi-angle-down chev"></i></div>
+      <div class="menu-group"><i class="pi pi-history mi"></i><span class="ml">Lịch sử hoạt động</span><i class="pi pi-angle-down chev"></i></div>
+      <div class="menu-group"><i class="pi pi-file mi"></i><span class="ml">Quản lý kế hoạch và hợp đồng</span><i class="pi pi-angle-down chev"></i></div>
+      <div class="menu-group"><i class="pi pi-box mi"></i><span class="ml">Quản lý cấp phát và triển khai</span><i class="pi pi-angle-down chev open"></i></div>
+      <div class="menu-children open">
+        <div class="menu-item"><i class="pi pi-flag mi2"></i>Phiếu đề nghị SPMM</div>
+        <div class="menu-item active-route"><i class="pi pi-flag mi2"></i>Quyết định triển khai</div>
+        <div class="menu-item"><i class="pi pi-flag mi2"></i>Kế hoạch cài đặt và cấp phát</div>
+        <div class="menu-item"><i class="pi pi-flag mi2"></i>Phiếu nhập kho</div>
+        <div class="menu-item"><i class="pi pi-flag mi2"></i>Căn cứ điều chuyển SPMM</div>
+        <div class="menu-item"><i class="pi pi-flag mi2"></i>Phiếu cấp phát</div>
+      </div>
+      <div class="menu-group"><i class="pi pi-chart-bar mi"></i><span class="ml">Báo cáo</span><i class="pi pi-angle-down chev"></i></div>
+      <div class="menu-group"><i class="pi pi-database mi"></i><span class="ml">Quản lý tài sản</span><i class="pi pi-angle-down chev"></i></div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="ver">Phiên bản 1.1.9</span>
+      <div class="foot-icons">
+        <span title="Đăng xuất"><i class="pi pi-sign-out"></i></span><span title="Cập nhật chứng thư"><i class="pi pi-sync"></i></span><span title="Thu gọn thanh bên"><i class="pi pi-angle-double-left"></i></span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <div class="topbar">
+      <button class="hbtn" title="Thu gọn thanh bên"><i class="pi pi-bars"></i></button>
+      <button class="backbtn" title="Quay lại"><i class="pi pi-arrow-left"></i></button>
+      <div class="crumbtrail">
+        <span class="ci" title="Trang chủ"><i class="fa-solid fa-house"></i></span><span class="sep">/</span>
+        <span class="ci mid" title="Quản lý cấp phát và triển khai"><i class="pi pi-folder"></i></span><span class="sep">/</span>
+        <span class="last" id="crumbLast">Quyết định triển khai</span>
+      </div>
+      <div class="spacer"></div>
+      <button class="searchbtn" title="Ctrl+K"><i class="pi pi-search"></i> Tìm kiếm <span class="kbd">(Ctrl+K)</span></button>
+      <button class="logoutbtn" title="Đăng xuất"><i class="pi pi-sign-out"></i></button>
+    </div>
+    <div class="content-scroll">
+
+<!-- Quick-jump nav (chỉ phục vụ review — không thay cho luồng chuyển màn thật) -->
+<div class="protobar">
+  <span class="lbl">Màn:</span>
+  <select id="protoJump" onchange="showScreen(this.value)">
+    <option value="scr-ds">1 · Màn hình Danh sách QĐTK</option>
+    <option value="scr-lap">2 · Màn hình Tạo QĐTK</option>
+    <option value="scr-qdgctkh-sim">3 · (mô phỏng) Chức năng QĐGCTKH</option>
+  </select>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 1: ds-qdtk — Màn hình Danh sách QĐTK -->
+<!-- ============================================================ -->
+<div class="screen active" id="scr-ds">
+  <div class="page"><div class="card">
+    <div class="crumb">Quyết định triển khai</div>
+    <div class="head">
+      <div class="title">Quyết định triển khai</div>
+      <div class="tools">
+        <button class="icon-btn" title="Làm mới" onclick="location.reload()">⟳</button>
+      </div>
+    </div>
+    <div class="toolbar-row">
+      <div class="colpick" id="colpick">
+        <button class="colpick-btn" type="button" onclick="toggleColPick()"><span id="colpickLabel">11 cột được chọn</span><span class="colpick-arrow">▾</span></button>
+        <div class="colpick-panel" id="colpickPanel">
+          <div class="colpick-search">
+            <span class="colpick-search-ico">🔍</span>
+            <input type="text" oninput="filterColPick(this.value)">
+            <span class="colpick-clear" onclick="clearColPick()" title="Bỏ chọn tất cả">×</span>
+          </div>
+          <div class="colpick-list" id="colpickList">
+            <label><input type="checkbox" checked>STT</label>
+            <label><input type="checkbox" checked>Số phiếu</label>
+            <label><input type="checkbox" checked>Số quyết định triển khai</label>
+            <label><input type="checkbox" checked>Trạng thái</label>
+            <label><input type="checkbox" checked>Ngày chứng từ</label>
+            <label><input type="checkbox" checked>Số QĐGCTKH</label>
+            <label><input type="checkbox" checked>Đơn vị đề nghị</label>
+            <label><input type="checkbox" checked>Đơn vị tạo</label>
+            <label><input type="checkbox" checked>Người tạo</label>
+            <label><input type="checkbox" checked>Thời gian tạo</label>
+            <label><input type="checkbox" checked>Thao tác</label>
+          </div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn sm" onclick="openNewRecord()">＋ Quyết định triển khai</button>
+    </div>
+    <div class="wrap" style="margin-top:10px">
+      <table class="list">
+        <thead>
+          <tr>
+            <th style="width:44px">STT</th>
+            <th>Số phiếu<span class="sort">⇅</span></th>
+            <th>Số QĐ triển khai<span class="sort">⇅</span></th>
+            <th style="width:150px">Trạng thái<span class="sort">⇅</span></th>
+            <th>Ngày chứng từ<span class="sort">⇅</span></th>
+            <th>Số QĐGCTKH<span class="sort">⇅</span></th>
+            <th>Đơn vị đề nghị<span class="sort">⇅</span></th>
+            <th style="width:90px">Thao tác</th>
+          </tr>
+          <tr class="filter-row">
+            <td></td>
+            <td><input placeholder="Tìm..."></td>
+            <td><input placeholder="Tìm..."></td>
+            <td><select><option>Tất cả</option><option>Mới</option><option>Đã ban hành</option></select></td>
+            <td><input type="date"></td>
+            <td><input placeholder="Tìm..."></td>
+            <td><select><option>Tất cả</option></select></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody id="dsQdtkBody">
+          <tr>
+            <td style="text-align:center">1</td>
+            <td><span class="link-cell" onclick="showScreen('scr-lap')">QDTK/2026/0120</span></td>
+            <td>QD-2026-001</td>
+            <td><span class="status status-dutha"><i class="pi pi-tag"></i>Mới</span></td>
+            <td>15/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-04</span></td>
+            <td>Cục Quản lý Kỹ thuật nghiệp vụ Mật mã</td>
+            <td><div class="actioncell">
+              <span class="icon-btn" title="Sửa" onclick="showScreen('scr-lap')">✎</span>
+              <span class="icon-btn del" title="Xoá" onclick="if(confirm('Xoá QĐTK này?')){this.closest('tr').remove()}">🗑</span>
+              <span class="icon-btn" title="Nhân bản">⧉</span>
+            </div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">2</td>
+            <td><span class="link-cell" onclick="showScreen('scr-qdgctkh-sim')">QDTK/2026/0098</span></td>
+            <td>QD-2026-002</td>
+            <td><span class="status status-daduyet"><i class="pi pi-tag"></i>Đã ban hành</span></td>
+            <td>10/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-01</span></td>
+            <td>Cục cơ yếu Công An</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Nhân bản">⧉</span></div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">3</td>
+            <td><span class="link-cell" onclick="showScreen('scr-lap')">QDTK/2026/0135</span></td>
+            <td></td>
+            <td><span class="status status-dutha"><i class="pi pi-tag"></i>Mới</span></td>
+            <td>20/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-DX-01</span></td>
+            <td>Cục cơ yếu Bộ ngoại giao</td>
+            <td><div class="actioncell">
+              <span class="icon-btn" title="Sửa" onclick="showScreen('scr-lap')">✎</span>
+              <span class="icon-btn del" title="Xoá" onclick="if(confirm('Xoá QĐTK này?')){this.closest('tr').remove()}">🗑</span>
+              <span class="icon-btn" title="Nhân bản">⧉</span>
+            </div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">4</td>
+            <td><span class="link-cell" onclick="showScreen('scr-qdgctkh-sim')">QDTK/2026/0112</span></td>
+            <td>QD-2026-003</td>
+            <td><span class="status status-daduyet"><i class="pi pi-tag"></i>Đã ban hành</span></td>
+            <td>05/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-02</span></td>
+            <td>Cục cơ yếu Quân đội</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Nhân bản">⧉</span></div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">5</td>
+            <td><span class="link-cell" onclick="showScreen('scr-lap')">QDTK/2026/0101</span></td>
+            <td></td>
+            <td><span class="status status-dutha"><i class="pi pi-tag"></i>Mới</span></td>
+            <td>02/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-01</span></td>
+            <td>Cục Quản lý Kỹ thuật nghiệp vụ Mật mã</td>
+            <td><div class="actioncell">
+              <span class="icon-btn" title="Sửa" onclick="showScreen('scr-lap')">✎</span>
+              <span class="icon-btn del" title="Xoá" onclick="if(confirm('Xoá QĐTK này?')){this.closest('tr').remove()}">🗑</span>
+              <span class="icon-btn" title="Nhân bản">⧉</span>
+            </div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">6</td>
+            <td><span class="link-cell" onclick="showScreen('scr-lap')">QDTK/2026/0140</span></td>
+            <td></td>
+            <td><span class="status status-dutha"><i class="pi pi-tag"></i>Mới</span></td>
+            <td>21/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-04</span></td>
+            <td>Cục cơ yếu Quân đội</td>
+            <td><div class="actioncell">
+              <span class="icon-btn" title="Sửa" onclick="showScreen('scr-lap')">✎</span>
+              <span class="icon-btn del" title="Xoá" onclick="if(confirm('Xoá QĐTK này?')){this.closest('tr').remove()}">🗑</span>
+              <span class="icon-btn" title="Nhân bản">⧉</span>
+            </div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">7</td>
+            <td><span class="link-cell" onclick="showScreen('scr-qdgctkh-sim')">QDTK/2026/0088</span></td>
+            <td>QD-2026-005</td>
+            <td><span class="status status-daduyet"><i class="pi pi-tag"></i>Đã ban hành</span></td>
+            <td>28/07/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-03</span></td>
+            <td>Cục cơ yếu Bộ ngoại giao</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Nhân bản">⧉</span></div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">8</td>
+            <td><span class="link-cell" onclick="showScreen('scr-qdgctkh-sim')">QDTK/2026/0075</span></td>
+            <td>QD-2026-006</td>
+            <td><span class="status status-daduyet"><i class="pi pi-tag"></i>Đã ban hành</span></td>
+            <td>20/07/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-01</span></td>
+            <td>Cục cơ yếu Công An</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Nhân bản">⧉</span></div></td>
+          </tr>
+          <tr>
+            <td style="text-align:center">9</td>
+            <td><span class="link-cell" onclick="showScreen('scr-lap')">QDTK/2026/0130</span></td>
+            <td>QD-2026-007</td>
+            <td><span class="status status-dutha"><i class="pi pi-tag"></i>Mới</span></td>
+            <td>18/08/2026</td>
+            <td><span class="link-cell" onclick="scopeAlert()">QD-2026-KH-02</span></td>
+            <td>Cục Quản lý Kỹ thuật nghiệp vụ Mật mã</td>
+            <td><div class="actioncell">
+              <span class="icon-btn" title="Sửa" onclick="showScreen('scr-lap')">✎</span>
+              <span class="icon-btn del" title="Xoá" onclick="if(confirm('Xoá QĐTK này?')){this.closest('tr').remove()}">🗑</span>
+              <span class="icon-btn" title="Nhân bản">⧉</span>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pager">‹ 1 2 3 ›</div>
+  </div></div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCREEN 2: tao-quyet-dinh-trien-khai — Màn hình Tạo QĐTK -->
+<!-- ============================================================ -->
+<div class="screen" id="scr-lap">
+  <div class="page"><div class="card">
+    <div class="crumb">Quyết định triển khai / Tạo QĐTK</div>
+    <div class="head">
+      <div class="title">Tạo Quyết định triển khai</div>
+      <div class="tools">
+        <button class="btn sm outline" onclick="xuatPhuLucExcel()">⇩ Xuất phụ lục (Excel)</button>
+        <button class="btn plain" id="btnTaoHuy" onclick="handleHuyBo()">Huỷ bỏ</button>
+        <button class="btn" id="btnTaoLuuNhap" onclick="handleLuuNhap()">Lưu nháp</button>
+        <button class="btn success" id="btnTaoGuiDuyet" onclick="handleGuiDuyet()">Ban hành</button>
+      </div>
+    </div>
+
+    <div class="banner banner-warn" id="duyetMismatchBanner" style="display:none">
+      <span>⚠</span>
+      <div id="duyetMismatchText"></div>
+    </div>
+
+    <div class="section" id="secI">
+      <div class="sh" onclick="toggleSec('secI')">
+        <div class="left"><span class="chev">⌄</span>I. Thông tin chung</div>
+        <span class="status status-dutha" id="taoStatusBadge"><i class="pi pi-tag"></i>Mới</span>
+      </div>
+      <div class="sbody">
+        <div class="grid4 rowgap">
+          <div class="field"><label>Số phiếu</label><input class="input" id="taoSoPhieu" value="QDTK/2026/0135" disabled></div>
+          <div class="field"><label><span class="req">*</span>Số quyết định triển khai</label><input class="input" id="taoSoQD" placeholder="Nhập số (bắt buộc khi Ban hành)"></div>
+          <div class="field"><label><span class="req">*</span>Ngày chứng từ</label><input class="input" type="date" id="taoNgayCT" value="2026-08-20"></div>
+          <div class="field"><label><span class="req">*</span>Năm áp dụng</label>
+            <select class="input" id="taoNamApDung" onchange="yearChanged()"><option>2026</option><option>2027</option><option>2025</option></select>
+          </div>
+        </div>
+        <div class="grid4 rowgap">
+          <div class="field span2"><label><span class="req">*</span>QĐGCTKH liên quan</label>
+            <select class="input" id="taoQdgctkh"><option>-- Chọn 1 QĐGCTKH đã ban hành (năm 2026) --</option><option>QĐ-2026-KH-04 (Năm 2026)</option><option>QĐ-2026-DX-01 (Đột xuất 2026)</option></select>
+          </div>
+          <div class="field"><label><span class="req">*</span>Đơn vị đề nghị</label>
+            <select class="input" id="taoDonViDeNghi"><option>Cục Quản lý Kỹ thuật nghiệp vụ Mật mã (đơn vị của tôi)</option><option>Cục Quản lý Kỹ thuật nghiệp vụ Mật mã — Chi cục Phú Thọ</option></select>
+          </div>
+          <div class="field"><label>Đơn vị tạo</label><input class="input" value="Cục Quản lý Kỹ thuật nghiệp vụ Mật mã" disabled></div>
+        </div>
+        <div class="grid4 rowgap">
+          <div class="field"><label>Người tạo</label><input class="input" value="nva01 — Nguyễn Văn A" disabled></div>
+          <div class="field"><label>Thời gian tạo</label><input class="input" id="taoThoiGianTao" value="20/08/2026 09:12:00" disabled></div>
+          <div class="field span2"><label>Mô tả</label><textarea class="input" id="taoMoTa" placeholder="Nhập mô tả">Bổ sung thiết bị cho đơn vị mới thành lập</textarea></div>
+        </div>
+        <div class="attach">
+          <div class="attach-head">
+            <button class="attach-btn" onclick="openAttachModal()">▤ Tài liệu đính kèm <span class="badge-count">2</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="secII">
+      <div class="sh" onclick="toggleSec('secII')"><div class="left"><span class="chev">⌄</span>II. Thông tin chi tiết</div></div>
+      <div class="sbody">
+        <div class="tablebar">
+          <div class="viewpick">
+            <span class="viewpick-label">Xem theo</span>
+            <select class="viewswitch" onchange="changeView(this)">
+              <option value="group" selected>☰ Nhóm theo SPMM</option>
+              <option value="flat">☰ Trải phẳng</option>
+            </select>
+          </div>
+          <div class="left-tools">
+            <button class="btn sm" onclick="openBulkModal()">Nhập hàng loạt</button>
+            <button class="btn sm" onclick="openExcelModal()">⇧ Nhập Excel</button>
+          </div>
+        </div>
+        <div class="selbar" id="detailSelbar" style="display:none">
+          <span id="detailSelCount">Đã chọn 0 dòng</span>
+          <input class="input sm" id="bulkFillInput" type="number" min="0" placeholder="Số lượng" style="width:110px">
+          <button class="btn sm" onclick="bulkFillQty()">Điền số hàng loạt</button>
+          <button class="btn sm danger" onclick="deleteSelectedRows()">Xoá dòng đã chọn</button>
+          <span class="sel-clear" onclick="clearSelection()">Bỏ chọn</span>
+        </div>
+        <div class="wrap">
+          <table class="detail detail-main">
+            <thead><tr>
+              <th style="width:32px"><input type="checkbox" id="selectAllChk" onchange="toggleSelectAll(this.checked)"></th>
+              <th style="width:34px">STT</th><th style="width:230px"><span class="req">*</span>SPMM</th><th style="width:160px"><span class="req">*</span>Địa điểm triển khai</th><th style="width:70px">ĐVT</th>
+              <th class="num" style="width:100px">Số lượng cấp</th><th style="width:140px"><span class="req">*</span>Loại điều chỉnh</th><th class="num" style="width:120px"><span class="req">*</span>Số lượng điều chỉnh</th><th class="num" style="width:120px">Số lượng cấp (mới)</th>
+              <th>Ghi chú mục đích</th><th style="width:40px"></th>
+            </tr>
+            <tr class="filter-row">
+              <td></td>
+              <td></td>
+              <td>
+                <div class="colpick fpick" id="fpickSpmm">
+                  <button class="colpick-btn fpick-btn" type="button" onclick="toggleFPick('fpickSpmm')">🔻&nbsp;<span id="fpickSpmmLabel">Tất cả (3 loại)</span></button>
+                  <div class="colpick-panel" id="fpickSpmmPanel">
+                    <div class="colpick-search">
+                      <span class="colpick-search-ico">🔍</span>
+                      <input type="text" id="fpickSpmmSearch" oninput="filterFPickList('fpickSpmmList', this.value)">
+                      <span class="colpick-clear" onclick="clearFPick('fpickSpmm')" title="Bỏ chọn tất cả">×</span>
+                    </div>
+                    <div class="colpick-list" id="fpickSpmmList"></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="colpick fpick" id="fpickLoc">
+                  <button class="colpick-btn fpick-btn" type="button" onclick="toggleFPick('fpickLoc')">🔻&nbsp;<span id="fpickLocLabel">Tất cả (5 điểm)</span></button>
+                  <div class="colpick-panel" id="fpickLocPanel">
+                    <div class="colpick-search">
+                      <span class="colpick-search-ico">🔍</span>
+                      <input type="text" id="fpickLocSearch" oninput="filterFPickList('fpickLocList', this.value)">
+                      <span class="colpick-clear" onclick="clearFPick('fpickLoc')" title="Bỏ chọn tất cả">×</span>
+                    </div>
+                    <div class="colpick-list" id="fpickLocList"></div>
+                  </div>
+                </div>
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <select onchange="changeTypeFilter(this.value)">
+                  <option value="">Tất cả</option>
+                  <option value="tang">Điều chỉnh tăng</option>
+                  <option value="giam">Điều chỉnh giảm</option>
+                </select>
+              </td>
+              <td></td><td></td><td></td><td></td>
+            </tr></thead>
+            <tbody id="detailBody"></tbody>
+          </table>
+        </div>
+        <div class="detail-foot">
+          <button class="btn sm outline" onclick="addQuickRow()">＋ Thêm 1 dòng</button>
+          <span class="detail-summary" id="detailSummary"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section collapsed" id="secHist">
+      <div class="sh" onclick="toggleSec('secHist')"><div class="left"><span class="chev">⌄</span>III. Lịch sử bản ghi</div></div>
+      <div class="sbody">
+        <div class="wrap">
+          <table class="detail locked">
+            <thead><tr><th style="width:150px">Thời gian</th><th>Người thực hiện</th><th>Hành động</th><th>Ghi chú</th></tr></thead>
+            <tbody>
+              <tr><td>20/08/2026 09:12</td><td>nva01 — Nguyễn Văn A</td><td>Lập QĐTK (Mới)</td><td>—</td></tr>
+              <tr><td>20/08/2026 10:05</td><td>nva01 — Nguyễn Văn A</td><td>Lưu nháp</td><td>—</td></tr>
+              <tr><td>21/08/2026 16:30</td><td>nva01 — Nguyễn Văn A</td><td>Ban hành</td><td>Số công văn QD-2026-001, đã đính kèm công văn ký số eOffice</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SCREEN 3 (MÔ PHỎNG): Chức năng QĐGCTKH — NGOÀI PHẠM VI feature QĐTK -->
+<!-- Chỉ truy cập thủ công qua danh sách màn hình demo (protoJump) — không có màn Duyệt riêng, -->
+<!-- phê duyệt diễn ra ngoài hệ thống (eOffice); hệ thống tự cập nhật QĐGCTKH khi Ban hành. -->
+<!-- Không phải đặc tả chính thức — chức năng QĐGCTKH có SRS riêng. -->
+<!-- ============================================================ -->
+<div class="screen" id="scr-qdgctkh-sim">
+  <div class="page"><div class="card">
+    <div class="crumb">QĐ giao chỉ tiêu kế hoạch / QĐ-2026-KH-04</div>
+    <div class="head">
+      <div class="title">Xem Quyết định giao chỉ tiêu kế hoạch <span class="status status-daduyet" style="margin-left:8px"><i class="pi pi-tag"></i>ĐÃ BAN HÀNH</span></div>
+      <div class="tools">
+        <button class="btn plain" onclick="showScreen('scr-ds')">← Về danh sách QĐTK</button>
+        <button class="btn outline">Xuất phụ lục</button>
+      </div>
+    </div>
+
+    <div class="banner banner-sim">
+      <span>ℹ</span>
+      <div><b>Đây là mô phỏng minh hoạ chức năng QĐGCTKH</b> — NGOÀI PHẠM VI đặc tả của feature "Quyết định triển khai". Dựng theo khuôn màn thật (Mục 9.1/9.3 <code>design.md</code>) để hình dung nơi QĐTK ghi Số lượng cấp sau khi Ban hành (Mục 7 <code>srs-quyet-dinh-trien-khai.md</code>). Chức năng thật cần đặc tả riêng.</div>
+    </div>
+
+    <div class="tabbar">
+      <button class="tab active" id="tabbtn-plan" onclick="showTab('plan')">Kế hoạch hiện hành</button>
+      <button class="tab" id="tabbtn-hist" onclick="showTab('hist')">Lịch sử phiên bản</button>
+      <button class="tab" id="tabbtn-changes" onclick="showTab('changes')">Chi tiết thay đổi</button>
+    </div>
+
+    <!-- Tab: Kế hoạch hiện hành -->
+    <div class="tabpanel active" id="tabpanel-plan">
+
+      <div class="section" id="secQdgctkhChung">
+        <div class="sh" onclick="toggleSec('secQdgctkhChung')"><div class="left"><span class="chev">⌄</span>Thông tin chung</div></div>
+        <div class="sbody">
+          <div class="grid4 rowgap">
+            <div class="field"><label>Số phiếu</label><input class="input" value="QĐ/QLKT/2027/0001" disabled></div>
+            <div class="field"><label>Số QĐGCTKH</label><input class="input" value="142/QĐ-QLKTNVMM" disabled></div>
+            <div class="field"><label>Ngày chứng từ</label><input class="input" value="05/09/2026" disabled></div>
+            <div class="field"><label>Loại kế hoạch</label><input class="input" value="Kế hoạch năm" disabled></div>
+          </div>
+          <div class="grid4 rowgap">
+            <div class="field"><label>Năm áp dụng</label><input class="input" value="2027" disabled></div>
+            <div class="field"><label>Phương thức tạo</label><input class="input" value="Tạo từ Phiếu đề nghị SPMM" disabled></div>
+            <div class="field span2"><label>Phiếu đề nghị SPMM</label><input class="input" value="Đã chọn 5 phiếu" disabled></div>
+          </div>
+          <div class="grid4 rowgap">
+            <div class="field span2"><label>Mô tả</label><textarea class="input" disabled>Kế hoạch năm 2027 cho 4 hệ và Cục QLKTNVMM</textarea></div>
+          </div>
+          <div class="attach">
+            <div class="attach-head"><button class="attach-btn">▤ Tài liệu đính kèm <span class="badge-count">2</span></button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="secQdgctkhChiTiet">
+        <div class="sh" onclick="toggleSec('secQdgctkhChiTiet')"><div class="left"><span class="chev">⌄</span>Thông tin chi tiết</div></div>
+        <div class="sbody">
+          <div class="tabbar" style="margin-bottom:10px">
+            <button class="tab active">Cơ yếu Đảng chính quyền (142)</button>
+            <button class="tab">Cơ yếu Bộ Công an (96)</button>
+            <button class="tab">Cơ yếu Quân đội (88)</button>
+            <button class="tab">Cơ yếu Bộ ngoại giao (77)</button>
+            <button class="tab">Cục QLKTNVMM (8)</button>
+          </div>
+          <div class="tablebar">
+            <div class="viewpick"><span class="viewpick-label">Xem theo</span>
+              <select class="viewswitch"><option>Nhóm theo SPMM</option><option>Trải phẳng</option></select>
+            </div>
+          </div>
+          <div class="wrap">
+            <table class="detail detail-main" style="min-width:1080px">
+              <thead><tr>
+                <th style="width:210px">SPMM</th><th style="width:220px">Địa điểm triển khai</th><th style="width:55px">ĐVT</th>
+                <th class="num" style="width:90px">Hiện trạng</th><th class="num" style="width:90px">Số đề nghị</th>
+                <th class="num" style="width:120px">Số lượng cấp</th><th style="width:200px">Ghi chú mục đích</th>
+              </tr>
+              <tr class="filter-row">
+                <td><div class="colpick fpick"><button class="colpick-btn fpick-btn" type="button">🔻&nbsp;Tất cả (4 loại)</button></div></td>
+                <td><div class="colpick fpick"><button class="colpick-btn fpick-btn" type="button">🔻&nbsp;Tất cả (18 địa điểm)</button></div></td>
+                <td></td><td></td><td></td><td></td><td></td>
+              </tr></thead>
+              <tbody>
+                <tr class="group-row"><td><span class="chev">⌄</span> 0001 - USB Token</td><td></td><td class="num">Cái</td><td class="num">16</td><td class="num">52</td><td class="num">52</td><td></td></tr>
+                <tr><td style="padding-left:24px">└ Cơ yếu Đảng chính quyền — Triển khai</td><td></td><td class="num">Cái</td><td class="num">12</td><td class="num">40</td><td class="num">40</td><td>Phục vụ phòng nghiệp vụ</td></tr>
+                <tr><td style="padding-left:24px">└ Tỉnh uỷ Bắc Ninh</td><td></td><td class="num">Cái</td><td class="num">4</td><td class="num">12</td><td class="num">12</td><td></td></tr>
+                <tr class="group-row"><td><span class="chev">⌄</span> 0002 - Thẻ thông minh</td><td></td><td class="num">Cái</td><td class="num">30</td><td class="num">120</td><td class="num">320</td><td></td></tr>
+                <tr><td style="padding-left:24px">└ Cơ yếu Đảng chính quyền — Triển khai</td><td></td><td class="num">Cái</td><td class="num">30</td><td class="num">120</td><td class="num">120</td><td></td></tr>
+                <tr><td style="padding-left:24px">└ Cơ yếu Đảng chính quyền — Dự phòng</td><td></td><td class="num">Cái</td><td class="num">—</td><td class="num">—</td>
+                  <td class="num"><span class="sl-changed" title="Số lượng cấp đã thay đổi so với ban đầu — bấm để xem lý do" onclick="jumpToChangesFiltered('0002','Cơ yếu Đảng chính quyền — Dự phòng')">200</span></td>
+                  <td>Đệm điều chuyển nội bộ</td></tr>
+                <tr class="group-row collapsed"><td><span class="chev">›</span> 0014 - Máy mã hoá</td><td></td><td class="num">Bộ</td><td class="num">22</td><td class="num">28</td><td class="num">28</td><td></td></tr>
+                <tr class="group-row collapsed"><td><span class="chev">›</span> 0027 - Thẻ khoá</td><td></td><td class="num">Cái</td><td class="num">74</td><td class="num">96</td><td class="num">96</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="detail-foot"><span class="detail-summary">4 loại SPMM · 142 dòng chi tiết</span></div>
+          <div class="hint" style="margin-top:8px"><b>Số lượng cấp</b> = Số lượng cấp (giá trị đang lưu) +− Tổng điều chỉnh của QĐTK vừa Ban hành — tự tính lại ngay khi QĐTK insert vào Chi tiết thay đổi (Mục 7.2 <code>srs-quyet-dinh-trien-khai.md</code>). DB vẫn lưu <b>SL ban đầu</b> làm căn cứ so sánh: khi Số lượng cấp khác SL ban đầu → <span class="sl-changed" style="cursor:default">bôi đỏ</span>, bấm vào để mở tab "Chi tiết thay đổi" đã lọc sẵn theo SPMM + Địa điểm triển khai.</div>
+        </div>
+      </div>
+
+      <div class="section" id="secQdgctkhPhanBo">
+        <div class="sh" onclick="toggleSec('secQdgctkhPhanBo')"><div class="left"><span class="chev">⌄</span>Phân bổ theo hệ</div></div>
+        <div class="sbody">
+          <div class="wrap">
+            <table class="detail locked" style="min-width:1350px">
+              <thead><tr>
+                <th style="width:170px">SPMM</th><th style="width:60px">ĐVT</th><th class="num" style="width:120px">Cơ yếu Đảng</th><th class="num" style="width:140px">Cơ yếu Bộ Công an</th><th class="num" style="width:130px">Cơ yếu Quân đội</th>
+                <th class="num" style="width:150px">Cơ yếu Bộ ngoại giao</th><th class="num" style="width:180px">Cục QLKTNVMM — Triển khai</th><th class="num" style="width:100px">Dự phòng</th><th class="num" style="width:100px">Tổng</th>
+              </tr></thead>
+              <tbody>
+                <tr><td>0001 - USB Token</td><td>Cái</td><td class="num">52</td><td class="num">40</td><td class="num">38</td><td class="num">35</td><td class="num">65</td><td class="num">60</td><td class="num">290</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Lịch sử phiên bản -->
+    <div class="tabpanel" id="tabpanel-hist">
+      <div class="version-item" id="ver-v06">
+        <div class="version-head" onclick="toggleVersion('v06')">
+          <span class="version-chev" id="v06-chev">▾</span>
+          <span class="version-badge">Phiên bản 06</span>
+          <span class="version-src">← QĐTK <b class="link-cell" onclick="showScreen('scr-lap')">QD-2026-070</b></span>
+          <span class="version-date">02/09/2026 · Lê Văn D</span>
+        </div>
+        <div class="version-desc">Tăng Thẻ thông minh tại Cơ yếu Đảng chính quyền — Dự phòng, SL 50 (đệm điều chuyển nội bộ)</div>
+        <div class="version-body open" id="v06-body">
+          <table class="detail locked" style="min-width:0">
+            <thead><tr><th>Dòng (SPMM × Địa điểm)</th><th class="num">Delta</th><th>Trước → Sau</th></tr></thead>
+            <tbody>
+              <tr><td>Thẻ thông minh — Cơ yếu Đảng chính quyền — Dự phòng</td><td class="num">+50</td><td class="num">150 → 200</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="version-item" id="ver-v05">
+        <div class="version-head" onclick="toggleVersion('v05')">
+          <span class="version-chev" id="v05-chev">▸</span>
+          <span class="version-badge">Phiên bản 05</span>
+          <span class="version-src">← QĐTK <b class="link-cell" onclick="showScreen('scr-lap')">QD-2026-001</b> (QDTK/2026/0135)</span>
+          <span class="version-date">16/08/2026 · Trần Thị B</span>
+        </div>
+        <div class="version-desc">Cấp bổ sung Máy mã hoá X cho Đà Nẵng (mới) từ Dự phòng Cục, SL 5</div>
+        <div class="version-body" id="v05-body">
+          <table class="detail locked" style="min-width:0">
+            <thead><tr><th>Dòng (SPMM × Địa điểm)</th><th class="num">Delta</th><th>Trước → Sau</th></tr></thead>
+            <tbody>
+              <tr><td>Máy mã hoá X — Dự phòng Cục</td><td class="num">−5</td><td class="num">15 → 10</td></tr>
+              <tr><td>Máy mã hoá X — Đà Nẵng (mới)</td><td class="num">+5</td><td class="num">0 → 5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="version-item" id="ver-v04">
+        <div class="version-head" onclick="toggleVersion('v04')">
+          <span class="version-chev" id="v04-chev">▸</span>
+          <span class="version-badge">Phiên bản 04</span>
+          <span class="version-src">← QĐTK <b class="link-cell" onclick="showScreen('scr-lap')">QD-2026-098</b></span>
+          <span class="version-date">10/08/2026 · Nguyễn Văn C</span>
+        </div>
+        <div class="version-desc">Điều chỉnh giảm Máy mã hoá X tại Dự phòng Cơ yếu, tăng tại Dự phòng Cục, SL 5</div>
+        <div class="version-body" id="v04-body">
+          <table class="detail locked" style="min-width:0">
+            <thead><tr><th>Dòng (SPMM × Địa điểm)</th><th class="num">Delta</th><th>Trước → Sau</th></tr></thead>
+            <tbody>
+              <tr><td>Máy mã hoá X — Dự phòng Cơ yếu</td><td class="num">−5</td><td class="num">20 → 15</td></tr>
+              <tr><td>Máy mã hoá X — Dự phòng Cục</td><td class="num">+5</td><td class="num">10 → 15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="version-item origin" id="ver-v01">
+        <div class="version-head" onclick="toggleVersion('v01')">
+          <span class="version-chev" id="v01-chev">▸</span>
+          <span class="version-badge">Phiên bản 01 (gốc)</span>
+          <span class="version-src">Ban hành QĐGCTKH năm 2026</span>
+          <span class="version-date">01/01/2026 · Nguyễn Văn A</span>
+        </div>
+        <div class="version-desc">Bản gốc theo chỉ tiêu kế hoạch — không có QĐTK, không có Chi tiết thay đổi.</div>
+        <div class="version-body" id="v01-body">
+          <div class="readonly-mini">Số lượng cấp gốc: Hà Nội 25 · Dự phòng Cục 5 · Dự phòng Cơ yếu 20.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Chi tiết thay đổi (ledger, mỗi dòng ĐỘC LẬP — QĐTK mới nhất hiển thị trước) -->
+    <div class="tabpanel" id="tabpanel-changes">
+      <div class="tablebar">
+        <div class="viewpick"><span class="viewpick-label">Xem theo</span>
+          <select class="viewswitch" id="changesViewSwitch" onchange="renderChangesTable()">
+            <option value="flat" selected>☰ Trải phẳng</option>
+            <option value="he">☰ Theo Hệ</option>
+            <option value="spmm">☰ Theo SPMM</option>
+            <option value="qdtk">☰ Theo QĐTK</option>
+          </select>
+        </div>
+      </div>
+      <!-- Ẩn 2026-08-22 theo yêu cầu — mô tả từng cách xem + quy tắc phân quyền "Theo Hệ" đã chốt,
+           không cần hiện trên màn nữa (đã có ở srs-quyet-dinh-trien-khai.md). Giữ lại nguyên văn:
+      <div class="hint" style="margin-bottom:8px">
+        <b>Theo Hệ</b> — nhóm dòng theo cơ yếu đầu hệ (Cơ yếu Đảng chính quyền · Cơ yếu Bộ Công an · Cơ yếu Quân đội · Cơ yếu Bộ ngoại giao · Cục QLKTNVMM), khớp cách QĐTK tổng hợp — nhưng số lượng vẫn trừ/cộng đúng theo Mã SPMM + Địa điểm triển khai ở từng dòng, không gộp phép tính theo hệ.
+        Theo SPMM — nhóm theo SPMM rồi tới Địa điểm (giống cây ở tab "Kế hoạch hiện hành"). Theo QĐTK — nhóm theo từng QĐTK liên quan, phục vụ soát "1 lần Ban hành sinh ra đúng những dòng nào". Trải phẳng — không nhóm, mỗi dòng 1 hàng độc lập.
+        Mọi cách xem: QĐTK mới nhất hiển thị đầu tiên.
+      </div>
+      <div class="hint" style="margin-bottom:8px">
+        Phân quyền xem "Theo Hệ" (theo phân quyền mô tả trong QĐGCTKH): người dùng thuộc Cục QLKTNVMM (đơn vị đầu hệ cao nhất) → thấy toàn bộ — đủ 5 nhóm, đủ mọi dòng. Người dùng thuộc 1 đơn vị bất kỳ trong cây (cơ yếu đầu hệ hoặc cấp dưới) → chỉ thấy dòng của chính đơn vị mình + mọi đơn vị cấp con (đệ quy, không giới hạn số tầng); KHÔNG thấy dòng của cấp trên mình, đơn vị ngang hàng (cùng cha), hoặc hệ khác.
+      </div>
+      -->
+      <div class="wrap">
+        <table class="detail detail-main" style="min-width:1420px">
+          <thead><tr>
+            <th style="width:34px">STT</th><th style="width:180px">SPMM</th><th style="width:180px">Địa điểm triển khai</th><th style="width:60px">ĐVT</th>
+            <th style="width:110px">Loại điều chỉnh</th><th class="num" style="width:100px">Số lượng cấp</th><th class="num" style="width:130px">Số lượng điều chỉnh</th><th class="num" style="width:120px">Số lượng cấp (mới)</th>
+            <th style="width:120px">QĐTK liên quan</th><th style="width:110px">Ngày chứng từ</th><th style="width:120px">Người ban hành</th><th style="width:180px">Ghi chú</th>
+          </tr>
+          <tr class="filter-row">
+            <td></td>
+            <td><select id="chgFilterSpmm" onchange="renderChangesTable()"><option value="">Tất cả</option></select></td>
+            <td><select id="chgFilterLoc" onchange="renderChangesTable()"><option value="">Tất cả</option></select></td>
+            <td></td>
+            <td><select id="chgFilterType" onchange="renderChangesTable()"><option value="">Tất cả</option><option value="tang">Tăng</option><option value="giam">Giảm</option></select></td>
+            <td></td><td></td><td></td>
+            <td>
+              <div class="colpick fpick" id="fpickChgQdtk">
+                <button class="colpick-btn fpick-btn" type="button" onclick="toggleFPick('fpickChgQdtk')">🔻&nbsp;<span id="fpickChgQdtkLabel">Tất cả</span></button>
+                <div class="colpick-panel" id="fpickChgQdtkPanel">
+                  <div class="colpick-search">
+                    <span class="colpick-search-ico">🔍</span>
+                    <input type="text" id="fpickChgQdtkSearch" oninput="filterChgQdtkList(this.value)">
+                    <span class="colpick-clear" onclick="clearChgQdtkFPick()" title="Bỏ chọn tất cả">×</span>
+                  </div>
+                  <div class="colpick-list" id="fpickChgQdtkList"></div>
+                </div>
+              </div>
+            </td>
+            <td></td><td></td><td></td>
+          </tr></thead>
+          <tbody id="changesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===== MODALS (dùng chung cho màn Tạo QĐTK) ===== -->
+
+<div class="modalbg" id="modalBulk"><div class="modal wide">
+  <div class="mh">Nhập hàng loạt<button class="close" onclick="closeModal('modalBulk')">×</button></div>
+  <div class="banner banner-danger modal-errbanner" id="bulkErrBanner" style="display:none">
+    <span>✕</span>
+    <div id="bulkErrBannerText"></div>
+  </div>
+  <div class="mb">
+    <div class="readonly-mini rowgap">Chọn SPMM rồi tích các địa điểm triển khai — hệ thống tự đưa từng tổ hợp vào bảng <b>Chi tiết nhập</b> bên dưới kèm <b>Số lượng cấp</b> hiện hành trên QĐGCTKH, để đối chiếu với công văn đề nghị trước khi nhập điều chỉnh.</div>
+
+    <div class="two-col rowgap">
+      <div class="field">
+        <label><span class="req">*</span>① Chọn SPMM</label>
+        <div class="colpick mpick" id="bulkSpmmPick">
+          <button class="colpick-btn" type="button" onclick="toggleMPick('bulkSpmmPick')"><span id="bulkSpmmPickLabel">Chọn SPMM</span><span class="colpick-arrow">▾</span></button>
+          <div class="colpick-panel" id="bulkSpmmPickPanel">
+            <div class="colpick-search">
+              <span class="colpick-search-ico">🔍</span>
+              <input type="text" id="bulkSpmmSearch" placeholder="Tìm theo mã hoặc tên sản phẩm…" oninput="bulkRenderSpmmList()">
+              <span class="colpick-clear" onclick="bulkClearSpmm()" title="Bỏ chọn tất cả">×</span>
+            </div>
+            <div class="colpick-list" id="bulkSpmmList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label><span class="req">*</span>② Chọn địa điểm triển khai</label>
+        <div class="colpick mpick" id="bulkLocPick">
+          <button class="colpick-btn" type="button" onclick="toggleMPick('bulkLocPick')"><span id="bulkLocPickLabel">Chọn địa điểm</span><span class="colpick-arrow">▾</span></button>
+          <div class="colpick-panel" id="bulkLocPickPanel">
+            <div class="colpick-search">
+              <span class="colpick-search-ico">🔍</span>
+              <input type="text" id="bulkLocSearch" placeholder="Tìm địa điểm…" oninput="bulkRenderLocList()">
+              <span class="colpick-clear" onclick="bulkClearLoc()" title="Bỏ chọn tất cả">×</span>
+            </div>
+            <div class="colpick-list" id="bulkLocList"></div>
+          </div>
+        </div>
+        <label class="bulk-onlyfilled" style="margin-top:6px"><input type="checkbox" id="bulkNewLocToggle" onchange="bulkToggleNewLoc()">Thêm địa điểm mới (hiển thị toàn bộ danh sách Đơn vị)</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>③ Chi tiết nhập</label>
+      <div class="selbar" id="bulkGridSelbar" style="display:none">
+        <span id="bulkGridSelCount">Đã chọn 0 dòng</span>
+        <select class="input sm" id="bulkGridFillType" style="width:170px">
+          <option value="">Loại điều chỉnh…</option>
+          <option value="tang">Điều chỉnh tăng</option>
+          <option value="giam">Điều chỉnh giảm</option>
+        </select>
+        <input class="input sm" id="bulkGridFillInput" type="number" min="1" placeholder="Số lượng" style="width:110px">
+        <button class="btn sm" type="button" onclick="bulkGridFillQty()">Điền hàng loạt</button>
+        <button class="btn sm danger" type="button" onclick="bulkGridDeleteSelected()">Xoá dòng đã chọn</button>
+        <span class="sel-clear" onclick="bulkGridClearSel()">Bỏ chọn</span>
+      </div>
+      <div class="wrap bulk-gridwrap">
+        <table class="detail" style="min-width:830px">
+          <thead><tr>
+            <th style="width:34px"><input type="checkbox" id="bulkGridSelAll" onchange="bulkToggleSelectAll(this.checked)"></th>
+            <th style="width:40px">STT</th>
+            <th style="width:230px">SPMM</th><th>Địa điểm triển khai</th><th class="num" style="width:96px">Số lượng cấp</th>
+            <th style="width:150px"><span class="req">*</span>Loại điều chỉnh</th><th class="num" style="width:132px"><span class="req">*</span>Số lượng điều chỉnh</th>
+            <th class="num" style="width:118px">Số lượng cấp (mới)</th><th style="width:40px"></th>
+          </tr></thead>
+          <tbody id="bulkGridBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="field rowgap"><label>Ghi chú mục đích (áp dụng cho tất cả)</label>
+      <input class="input" id="bulkNote">
+    </div>
+    <div class="readonly-mini" id="bulkPreview">Chưa có dòng nào.</div>
+  </div>
+  <div class="mf"><button class="btn plain" onclick="closeModal('modalBulk')">Huỷ</button><button class="btn" id="bulkConfirmBtn" onclick="confirmBulk()" disabled>Xác nhận</button></div>
+</div></div>
+
+<div class="modalbg" id="modalImbalance"><div class="modal">
+  <div class="mh">Cảnh báo lệch cân đối<button class="close" onclick="closeModal('modalImbalance')">×</button></div>
+  <div class="mb">
+    <div class="banner banner-warn rowgap">
+      <span>⚠</span>
+      <div>QĐTK là điều chuyển nội bộ trong QĐGCTKH — tổng điều chỉnh <b>tăng</b> và <b>giảm</b> của mỗi SPMM lẽ ra phải bằng nhau. Các SPMM dưới đây đang lệch, thường do <b>thiếu dòng đối ứng</b> (vd cấp thêm cho đơn vị nhưng chưa trừ ở nơi dự phòng).</div>
+    </div>
+    <div class="wrap">
+      <table class="detail" style="min-width:0">
+        <thead><tr><th>SPMM</th><th class="num" style="width:110px">Tổng tăng</th><th class="num" style="width:110px">Tổng giảm</th><th class="num" style="width:90px">Lệch</th></tr></thead>
+        <tbody id="imbBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mf"><button class="btn plain" onclick="closeModal('modalImbalance')">Quay lại sửa</button><button class="btn" onclick="confirmImbalance()">Vẫn Ban hành</button></div>
+</div></div>
+
+<div class="modalbg" id="modalExcel"><div class="modal">
+  <div class="mh">Nhập Excel<button class="close" onclick="closeModal('modalExcel')">×</button></div>
+  <div class="mb">
+    <input type="file" id="excelFileInput" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelFileSelect(event)">
+    <div class="filecard" id="excelFileCard" onclick="document.getElementById('excelFileInput').click()">
+      <span id="excelFileCardText">Bấm để chọn file <b>.xlsx / .xls / .csv</b> từ máy</span>
+    </div>
+    <div class="rowgap" style="margin-top:10px"><a class="tpl-link" href="../srs/Phu_luc_QDTK_mau.xlsx" download>⇩ Tải file mẫu</a></div>
+    <div class="readonly-mini">File mẫu gồm cột: <b>Mã SPMM | Địa điểm triển khai | Loại điều chỉnh | Số lượng điều chỉnh | Ghi chú mục đích</b></div>
+    <div class="warn">Sai biểu mẫu (thiếu/sai tên cột) → chặn cả file. File đúng biểu mẫu nhưng có dòng lỗi (SPMM/địa điểm không tồn tại trong QĐGCTKH liên quan, số liệu không hợp lệ) → bỏ qua đúng dòng đó, liệt kê lý do, không chặn cả file.</div>
+    <div class="impok" id="excelImportOk" style="display:none">
+      ✓ Đã nhập <b id="excelImportedCount">0</b> dòng hợp lệ vào bảng chính.
+      <a class="tpl-link" id="excelSavedFileLink" download style="margin-left:6px">⇩ Lưu lại file vừa nhập</a>
+    </div>
+  </div>
+  <div class="mf"><button class="btn plain" onclick="closeModal('modalExcel')">Huỷ</button><button class="btn" id="excelImportBtn" onclick="confirmExcelImport()" disabled>Nhập</button></div>
+</div></div>
+
+<div class="modalbg" id="modalAttach"><div class="modal">
+  <div class="mh">Tài liệu đính kèm<button class="close" onclick="closeModal('modalAttach')">×</button></div>
+  <div class="mb">
+    <div class="wrap">
+      <table class="detail" style="min-width:0">
+        <thead><tr><th>Tên</th><th style="width:120px">Kích thước</th><th style="width:110px">Thao tác</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="link-cell" title="Xem trước">Cong-van-de-nghi-so-135.pdf</span></td>
+            <td>1.2 MB</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Xem trước">👁</span><span class="icon-btn" title="Tải về">⬇</span><span class="icon-btn del" title="Xoá">🗑</span></div></td>
+          </tr>
+          <tr>
+            <td><span class="link-cell" title="Xem trước">Bang-ke-SPMM-dinh-kem.xlsx</span></td>
+            <td>340 KB</td>
+            <td><div class="actioncell"><span class="icon-btn" title="Xem trước">👁</span><span class="icon-btn" title="Tải về">⬇</span><span class="icon-btn del" title="Xoá">🗑</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rowgap" style="margin-top:12px">
+      <button class="attach-btn" type="button">⇧ Chọn</button>
+    </div>
+    <div class="attach-hint">Còn lại tối đa 300MB / Group</div>
+  </div>
+  <div class="mf"><button class="btn plain" onclick="closeModal('modalAttach')">✕ Huỷ bỏ</button><button class="btn" onclick="closeModal('modalAttach')">✓ Lưu</button></div>
+</div></div>
+
+<script>
+/* ===== Điều hướng giữa 3 màn — đúng bảng chuyển màn Mục 3.5 userflow.md.
+   Không còn màn Duyệt/Từ chối riêng — phê duyệt diễn ra ngoài hệ thống qua eOffice,
+   trong hệ thống chỉ có 2 trạng thái Mới → Đã ban hành (nút "Ban hành"). ===== */
+var crumbMap = {
+  'scr-ds': 'Quyết định triển khai',
+  'scr-lap': 'Tạo QĐTK',
+  'scr-qdgctkh-sim': 'Quyết định giao chỉ tiêu kế hoạch (mô phỏng)'
+};
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.getElementById('protoJump').value = id;
+  document.getElementById('crumbLast').textContent = crumbMap[id] || '';
+  var taoBadge = document.getElementById('taoStatusBadge');
+  if(taoBadge){ taoBadge.className = 'status status-dutha'; taoBadge.innerHTML = '<i class="pi pi-tag"></i>Mới'; }
+  var mismatchBanner = document.getElementById('duyetMismatchBanner');
+  if(mismatchBanner) mismatchBanner.style.display = 'none';
+  if(id==='scr-lap'){ formDirty = false; isNewRecord = false; }
+  document.querySelector('.content-scroll').scrollTo(0,0);
+}
+function scopeAlert(){ alert('Chức năng QĐGCTKH — ngoài phạm vi feature này (xem brainstorm Mục 6.6).'); }
+
+/* ===== BR-quyet-dinh-trien-khai-016 — chống thao tác trùng: khoá nút + hiện "Đang xử lý..."
+   ngay khi bấm, mở lại khi xong. Áp cho mọi nút gây side-effect (Lưu nháp/Ban hành).
+   BUSY_DELAY chỉ mô phỏng độ trễ round-trip cho demo. ===== */
+var BUSY_DELAY = 350;
+function withBusy(btn, fn){
+  if(!btn || btn.disabled) return;
+  var oldText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Đang xử lý...';
+  setTimeout(function(){
+    try{ fn(); }
+    finally{
+      if(document.body.contains(btn)){ btn.disabled = false; btn.textContent = oldText; }
+    }
+  }, BUSY_DELAY);
+}
+/* ===== Tạo mới vs sửa bản ghi có sẵn — quyết định có chèn dòng mới vào Danh sách QĐTK khi lưu.
+   Bản ghi mới lập → bấm Lưu nháp/Ban hành lần đầu → chèn thêm 1 dòng vào Danh sách QĐTK (trạng
+   thái tương ứng). Mở lại 1 bản ghi có sẵn để sửa thì KHÔNG chèn trùng. ===== */
+var isNewRecord = false;
+var newRecordSeq = 141;
+function openNewRecord(){
+  detailRows = [];
+  rowSeq = 0;
+  selectedRowIds = [];
+  document.getElementById('taoSoPhieu').value = 'QDTK/2026/0'+(newRecordSeq++);
+  document.getElementById('taoSoQD').value = '';
+  document.getElementById('taoNgayCT').valueAsDate = new Date();
+  document.getElementById('taoNamApDung').selectedIndex = 0;
+  document.getElementById('taoQdgctkh').selectedIndex = 0;
+  document.getElementById('taoDonViDeNghi').selectedIndex = 0;
+  document.getElementById('taoMoTa').value = '';
+  showScreen('scr-lap');   /* showScreen() reset isNewRecord=false — đặt lại true SAU khi gọi */
+  isNewRecord = true;
+  renderTable();
+}
+function insertNewRecordToList(status){
+  var tbody = document.getElementById('dsQdtkBody');
+  var stt = tbody.querySelectorAll('tr').length + 1;
+  var soPhieu = document.getElementById('taoSoPhieu').value;
+  var soQD = document.getElementById('taoSoQD').value.trim();
+  var ngayCT = document.getElementById('taoNgayCT').value;
+  var ngayCTFmt = ngayCT ? ngayCT.split('-').reverse().join('/') : '';
+  var donVi = document.getElementById('taoDonViDeNghi').selectedOptions[0].textContent;
+  var qdgctkhTxt = document.getElementById('taoQdgctkh').selectedOptions[0].textContent;
+  var qdgctkhCell = qdgctkhTxt.indexOf('--')===0 ? '' : '<span class="link-cell" onclick="scopeAlert()">'+qdgctkhTxt+'</span>';
+  var statusCls = status==='dutha' ? 'status-dutha' : 'status-daduyet';
+  var statusTxt = status==='dutha' ? 'Mới' : 'Đã ban hành';
+  var actionCell = status==='dutha'
+    ? '<span class="icon-btn" title="Sửa" onclick="showScreen(\'scr-lap\')">✎</span><span class="icon-btn del" title="Xoá" onclick="if(confirm(\'Xoá QĐTK này?\')){this.closest(\'tr\').remove()}">🗑</span><span class="icon-btn" title="Nhân bản">⧉</span>'
+    : '<span class="icon-btn" title="Nhân bản">⧉</span>';
+  var tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td style="text-align:center">'+stt+'</td>' +
+    '<td><span class="link-cell" onclick="showScreen(\'scr-lap\')">'+soPhieu+'</span></td>' +
+    '<td>'+soQD+'</td>' +
+    '<td><span class="status '+statusCls+'"><i class="pi pi-tag"></i>'+statusTxt+'</span></td>' +
+    '<td>'+ngayCTFmt+'</td>' +
+    '<td>'+qdgctkhCell+'</td>' +
+    '<td>'+donVi+'</td>' +
+    '<td><div class="actioncell">'+actionCell+'</div></td>';
+  tbody.appendChild(tr);
+}
+function handleLuuNhap(){
+  withBusy(document.getElementById('btnTaoLuuNhap'), function(){
+    formDirty = false;
+    if(isNewRecord){ insertNewRecordToList('dutha'); isNewRecord = false; }
+    showScreen('scr-ds');
+  });
+}
+function handleGuiDuyet(){
+  withBusy(document.getElementById('btnTaoGuiDuyet'), doGuiDuyet);
+}
+
+/* ===== BR-quyet-dinh-trien-khai-018 — Huỷ bỏ / điều hướng ra khỏi màn Tạo QĐTK khi có thay đổi
+   chưa lưu (kể từ lần Lưu nháp/Gửi duyệt/mở màn gần nhất) phải xác nhận trước khi rời. ===== */
+var formDirty = false;
+function markFormDirty(){ formDirty = true; }
+function handleHuyBo(){
+  if(formDirty && !confirm('Bạn có thay đổi chưa lưu. Rời khỏi trang?')) return;
+  formDirty = false;
+  showScreen('scr-ds');
+}
+/* Delegated ở ancestor #scr-lap (capture) — bắt được cả input/select render động sau này */
+document.getElementById('scr-lap').addEventListener('input', markFormDirty, true);
+document.getElementById('scr-lap').addEventListener('change', markFormDirty, true);
+
+/* ===== Bộ chọn cột (dropdown tìm kiếm + checkbox) — màn Danh sách QĐTK ===== */
+function toggleColPick(){ document.getElementById('colpickPanel').classList.toggle('show'); }
+function updateColPickLabel(){
+  var checked = document.querySelectorAll('#colpickList input[type=checkbox]:checked').length;
+  document.getElementById('colpickLabel').textContent = checked===0 ? 'Chọn cột hiển thị' : checked+' cột được chọn';
+}
+function clearColPick(){
+  document.querySelectorAll('#colpickList input[type=checkbox]').forEach(function(c){ c.checked=false; });
+  updateColPickLabel();
+}
+function filterColPick(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('#colpickList label').forEach(function(l){
+    l.style.display = l.textContent.toLowerCase().indexOf(q)>-1 ? 'flex' : 'none';
+  });
+}
+document.addEventListener('click', function(e){
+  var pick=document.getElementById('colpick');
+  if(pick && !pick.contains(e.target)) document.getElementById('colpickPanel').classList.remove('show');
+});
+document.addEventListener('change', function(e){
+  if(e.target.closest('#colpickList')) updateColPickLabel();
+});
+
+/* ===== Bộ lọc dropdown tìm kiếm + checkbox (SPMM / Địa điểm) — hàng lọc bảng Thông tin chi tiết ===== */
+/* ===== Bộ lọc trên hàng lọc bảng Thông tin chi tiết — lọc THẬT, danh sách sinh theo dữ liệu
+   đang có trong bảng. Lưu các giá trị BỊ BỎ TÍCH (mặc định rỗng = hiện tất cả) để dòng mới
+   thêm sau vẫn tự hiện, không bị bộ lọc cũ nuốt mất. ===== */
+var filterSpmmOff = [], filterLocOff = [];
+
+function toggleFPick(id){
+  var panel = document.getElementById(id+'Panel');
+  var wasOpen = panel.classList.contains('show');
+  document.querySelectorAll('.fpick .colpick-panel').forEach(function(p){ p.classList.remove('show'); });
+  if(!wasOpen) panel.classList.add('show');
+}
+function fpickUnit(id){ return id==='fpickSpmm' ? 'loại' : 'điểm'; }
+function fpickValues(field){
+  var seen = {}, out = [];
+  detailRows.forEach(function(r){
+    var v = r[field];
+    if(v && !seen[v]){ seen[v] = 1; out.push(v); }
+  });
+  return out;
+}
+function fpickOffList(id){ return id==='fpickSpmm' ? filterSpmmOff : filterLocOff; }
+function renderFPickLists(){
+  [['fpickSpmm','spmm'], ['fpickLoc','loc']].forEach(function(pair){
+    var id = pair[0], field = pair[1];
+    var box = document.getElementById(id+'List');
+    if(!box) return;
+    var vals = fpickValues(field), off = fpickOffList(id);
+    box.innerHTML = vals.length ? vals.map(function(v){
+      var on = off.indexOf(v)===-1;
+      var label = field==='spmm' ? spmmLabel(v) : v;
+      return '<label><input type="checkbox"'+(on?' checked':'')+
+        ' onchange="toggleFPickItem(\''+id+'\',\''+v.replace(/'/g,"\\'")+'\',this.checked)">'+label+'</label>';
+    }).join('') : '<span class="hint">Chưa có dữ liệu</span>';
+    var q = document.getElementById(id+'Search') ? document.getElementById(id+'Search').value : '';
+    if(q) filterFPickList(id+'List', q);
+    updateFPickLabel(id);
+  });
+}
+function updateFPickLabel(id){
+  var field = id==='fpickSpmm' ? 'spmm' : 'loc';
+  var total = fpickValues(field).length;
+  var off = fpickOffList(id).filter(function(v){ return fpickValues(field).indexOf(v)>-1; }).length;
+  var sel = total - off;
+  document.getElementById(id+'Label').textContent =
+    off===0 ? ('Tất cả ('+total+' '+fpickUnit(id)+')') : (sel+'/'+total+' '+fpickUnit(id));
+}
+function toggleFPickItem(id, val, checked){
+  var off = fpickOffList(id);
+  if(checked){
+    var i = off.indexOf(val); if(i>-1) off.splice(i,1);
+  } else if(off.indexOf(val)===-1){ off.push(val); }
+  selectedRowIds = [];
+  renderTable();
+}
+function clearFPick(id){
+  var field = id==='fpickSpmm' ? 'spmm' : 'loc';
+  var off = fpickOffList(id);
+  off.length = 0;
+  fpickValues(field).forEach(function(v){ off.push(v); });   /* bỏ chọn tất cả */
+  selectedRowIds = [];
+  renderTable();
+}
+function filterFPickList(listId, q){
+  q = q.toLowerCase();
+  document.querySelectorAll('#'+listId+' label').forEach(function(l){
+    l.style.display = l.textContent.toLowerCase().indexOf(q)>-1 ? 'flex' : 'none';
+  });
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.fpick').forEach(function(fp){
+    var panel = fp.querySelector('.colpick-panel');
+    if(panel && !fp.contains(e.target)) panel.classList.remove('show');
+  });
+});
+
+/* ===== Mô phỏng chức năng QĐGCTKH (màn 6) — tab + timeline phiên bản + group-link ===== */
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('tabbtn-'+name).classList.add('active');
+  document.getElementById('tabpanel-'+name).classList.add('active');
+}
+/* Từ ô "Số lượng cấp" bị bôi đỏ (khác SL ban đầu) ở tab Kế hoạch hiện hành —
+   mở tab Chi tiết thay đổi, lọc sẵn đúng SPMM + Địa điểm triển khai của dòng đó. */
+function jumpToChangesFiltered(code, loc){
+  showTab('changes');
+  renderChangesTable(); /* đảm bảo đã dựng xong list/option trước khi gán giá trị */
+  var spmmSel = document.getElementById('chgFilterSpmm');
+  var locSel = document.getElementById('chgFilterLoc');
+  if(spmmSel) spmmSel.value = code;
+  if(locSel) locSel.value = loc;
+  chgQdtkOff = []; /* bỏ mọi lọc QĐTK trước đó để không che mất kết quả */
+  document.querySelectorAll('#fpickChgQdtkList input[type=checkbox]').forEach(function(c){ c.checked = true; });
+  updateChgQdtkLabel();
+  renderChangesTable();
+}
+function toggleVersion(id){
+  var body = document.getElementById(id+'-body');
+  var chev = document.getElementById(id+'-chev');
+  var open = body.classList.toggle('open');
+  chev.textContent = open ? '▾' : '▸';
+}
+function highlightGroup(gid){
+  document.querySelectorAll('[data-g="'+gid+'"]').forEach(function(el){
+    el.classList.add('group-flash');
+    setTimeout(function(){ el.classList.remove('group-flash'); }, 900);
+  });
+}
+function toggleSec(id){document.getElementById(id).classList.toggle('collapsed')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function yearChanged(){ if(confirm('Đổi Năm áp dụng sẽ XOÁ QĐGCTKH liên quan và toàn bộ bảng Thông tin chi tiết. Tiếp tục?')){ /* demo only */ } }
+/* Net theo từng SPMM — chỉ tính dòng đã nhập đủ Loại điều chỉnh + Số lượng điều chỉnh */
+function spmmNetImbalance(){
+  var m = {}, order = [];
+  detailRows.forEach(function(r){
+    if(!(r.spmm && r.loc && r.type)) return;
+    if(r.delta===null || r.delta===undefined) return;
+    if(!m[r.spmm]){ m[r.spmm] = {tang:0, giam:0}; order.push(r.spmm); }
+    if(r.type==='tang') m[r.spmm].tang += r.delta; else m[r.spmm].giam += r.delta;
+  });
+  return order.filter(function(sp){ return m[sp].tang !== m[sp].giam; })
+              .map(function(sp){ return {spmm:sp, tang:m[sp].tang, giam:m[sp].giam, net:m[sp].tang-m[sp].giam}; });
+}
+/* Cảnh báo lệch số liệu — Số lượng cấp hiện hành khác snapshot lúc lập, kiểm khi BẤM BAN HÀNH */
+function duyetMismatchRows(){
+  return detailRows.filter(function(r){
+    return r.spmm && r.loc && r.type && spmmData[r.spmm] &&
+           spmmData[r.spmm].locations[r.loc] &&
+           spmmData[r.spmm].locations[r.loc].req !== r.before;
+  });
+}
+/* Bước 4 (userflow Mục 2.2): nhập Số quyết định triển khai/Ngày chứng từ, đính kèm công văn đã
+   ký số ở eOffice, bấm Ban hành — không còn bước Duyệt/Từ chối nội bộ (phê duyệt đã xảy ra NGOÀI
+   hệ thống trước khi tới đây). Ban hành = kiểm tra lần cuối rồi chuyển thẳng Mới → Đã ban hành. */
+function doGuiDuyet(){
+  if(!document.getElementById('taoSoQD').value.trim() || !document.getElementById('taoNgayCT').value){ alert('Cần nhập đủ Số quyết định triển khai và Ngày chứng từ trước khi Ban hành.'); return; }
+  var imb = spmmNetImbalance();
+  if(imb.length){                       /* cảnh báo MỀM — vẫn Ban hành được nếu người dùng xác nhận */
+    document.getElementById('imbBody').innerHTML = imb.map(function(x){
+      return '<tr><td>'+spmmLabel(x.spmm)+'</td><td class="num">+'+x.tang+'</td><td class="num">−'+x.giam+'</td>' +
+             '<td class="num"><span class="net-warn">'+(x.net>0?'+':'')+x.net+'</span></td></tr>';
+    }).join('');
+    document.getElementById('modalImbalance').classList.add('show');
+    return;
+  }
+  finalizeBanHanh();
+}
+function confirmImbalance(){
+  closeModal('modalImbalance');
+  finalizeBanHanh();
+}
+function finalizeBanHanh(){
+  var mis = duyetMismatchRows();
+  var banner = document.getElementById('duyetMismatchBanner');
+  if(mis.length){
+    document.getElementById('duyetMismatchText').innerHTML =
+      '<b>'+mis.length+' dòng đã thay đổi số liệu</b> kể từ lúc lập — kiểm tra kỹ trước khi Ban hành. Dòng lệch đánh dấu đỏ ở bảng Mục II.';
+    banner.style.display = 'flex';
+    banner.scrollIntoView({block:'center'});
+    return;
+  }
+  banner.style.display = 'none';
+  formDirty = false;
+  if(isNewRecord){ insertNewRecordToList('daduyet'); isNewRecord = false; }
+  alert('Đã ban hành QĐTK. Hệ thống tự động cập nhật vào QĐGCTKH liên quan (chức năng QĐGCTKH, ngoài phạm vi feature này).');
+  showScreen('scr-ds');
+}
+
+/* SPMM -> { unit, locations: { địa điểm: {req: SL đề nghị hiện hành, tk: Số lượng đã cấp} } } — Dự phòng Cục/Quốc gia là "địa điểm" đặc biệt */
+/* Danh mục sản phẩm — nguồn: Cấu hình hệ thống \ Sản phẩm (rộng hơn số SPMM đang có trên QĐGCTKH) */
+var spmmCatalog = {
+  'USB Token':            {code:'0001', unit:'Cái'},
+  'Thẻ thông minh':       {code:'0002', unit:'Cái'},
+  'Máy mã hoá X':         {code:'0014', unit:'Chiếc'},
+  'Thẻ khoá':             {code:'0027', unit:'Cái'},
+  'Bộ đàm mã hoá':        {code:'0031', unit:'Bộ'},
+  'Thiết bị X':           {code:'0042', unit:'Chiếc'},
+  'Máy fax bảo mật':      {code:'0055', unit:'Chiếc'},
+  'Điện thoại bảo mật':   {code:'0063', unit:'Chiếc'},
+  'Thiết bị lưu khoá':    {code:'0071', unit:'Chiếc'},
+  'Phần mềm ký số':       {code:'0088', unit:'Bộ'},
+  'Máy tính bảo mật':     {code:'0096', unit:'Chiếc'},
+  'Thiết bị sinh khoá':   {code:'0104', unit:'Chiếc'}
+};
+/* Danh sách Đơn vị đầy đủ — dùng khi tích "Thêm địa điểm mới" (ngoài QĐGCTKH) */
+var donViCatalog = [
+  'Dự phòng Cục','Dự phòng Cơ yếu','Hà Nội','TP.HCM','Đà Nẵng',
+  'Cơ yếu Đảng chính quyền — Triển khai','Cơ yếu Đảng chính quyền — Dự phòng',
+  'Tỉnh uỷ Bắc Ninh','Tỉnh uỷ Phú Thọ','Tỉnh uỷ Hải Phòng',
+  'ĐSQ Paris','ĐSQ Berlin','ĐSQ Moskva','ĐSQ Bắc Kinh','TLSQ Osaka','ĐSQ Hoa Kỳ'
+];
+function spmmLabel(s){ return (spmmCatalog[s] ? spmmCatalog[s].code+' - ' : '') + s; }
+function spmmUnit(s){ return spmmData[s] ? spmmData[s].unit : (spmmCatalog[s] ? spmmCatalog[s].unit : ''); }
+
+var spmmData = {
+  'Máy mã hoá X': {unit:'Chiếc', locations:{
+    'Hà Nội':      {req:20, tk:5},
+    'Dự phòng Cục':  {req:45, tk:10},
+    'Dự phòng Cơ yếu': {req:20, tk:0}
+  }},
+  'Bộ đàm mã hoá': {unit:'Bộ', locations:{
+    'TP.HCM':      {req:8, tk:2},
+    'Dự phòng Cục':  {req:10, tk:0}
+  }},
+  'Thiết bị X': {unit:'Chiếc', locations:{
+    'Đà Nẵng':     {req:5, tk:0},
+    'Dự phòng Cơ yếu': {req:10, tk:0}
+  }},
+};
+
+/* ===== Data model: mỗi phần tử detailRows[] = 1 dòng điều chỉnh ĐỘC LẬP (SPMM + địa điểm +
+   Loại điều chỉnh tăng/giảm) — không còn ép cặp Nguồn-Đích 1:1 lúc nhập; cân đối tổng tăng =
+   tổng giảm theo từng SPMM kiểm ở bước Gửi duyệt, không phải ràng buộc ngay lúc nhập từng dòng. */
+var detailRows = [
+  {id:1, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Dự phòng Cục', type:'giam', before:45, tk:10, delta:5, note:'Cấp bổ sung cho Đà Nẵng từ Dự phòng Cục'},
+  {id:2, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Đà Nẵng (mới)', type:'tang', before:0, tk:0, delta:5, note:'Cấp bổ sung cho Đà Nẵng từ Dự phòng Cục'},
+  /* Demo "xin cấp bổ sung từ nguồn dự trữ" — cùng 1 địa điểm đích (Đà Nẵng, mới) nhận thêm từ nguồn dự trữ thứ 2. */
+  {id:3, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Dự phòng Cơ yếu', type:'giam', before:20, tk:0, delta:3, note:'Bổ sung thêm từ Dự phòng Cơ yếu'},
+  {id:4, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Đà Nẵng (mới)', type:'tang', before:0, tk:0, delta:3, note:'Bổ sung thêm từ Dự phòng Cơ yếu'},
+  /* Demo "Nhập hàng loạt" — 1 nguồn cố định (Hà Nội) rẽ nhánh 2 đích khác nhau. */
+  {id:5, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Hà Nội', type:'giam', before:20, tk:5, delta:3, note:'Nhập hàng loạt — 1 nguồn nhiều đích (Huế)'},
+  {id:6, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Huế (mới)', type:'tang', before:0, tk:0, delta:3, note:'Nhập hàng loạt — 1 nguồn nhiều đích (Huế)'},
+  {id:7, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Hà Nội', type:'giam', before:20, tk:5, delta:2, note:'Nhập hàng loạt — 1 nguồn nhiều đích (Nghệ An)'},
+  {id:8, spmm:'Máy mã hoá X', unit:'Chiếc', loc:'Nghệ An (mới)', type:'tang', before:0, tk:0, delta:2, note:'Nhập hàng loạt — 1 nguồn nhiều đích (Nghệ An)'},
+  {id:9, spmm:'Bộ đàm mã hoá', unit:'Bộ', loc:'Dự phòng Cục', type:'giam', before:10, tk:0, delta:2, note:'Bổ sung cho TP.HCM từ Dự phòng Cục'},
+  {id:10, spmm:'Bộ đàm mã hoá', unit:'Bộ', loc:'TP.HCM', type:'tang', before:8, tk:2, delta:2, note:'Bổ sung cho TP.HCM từ Dự phòng Cục'},
+  {id:11, spmm:'Thiết bị X', unit:'Chiếc', loc:'Dự phòng Cơ yếu', type:'giam', before:10, tk:0, delta:4, note:'Bổ sung cho Đà Nẵng từ Dự phòng Cơ yếu'},
+  {id:12, spmm:'Thiết bị X', unit:'Chiếc', loc:'Đà Nẵng', type:'tang', before:5, tk:0, delta:4, note:'Bổ sung cho Đà Nẵng từ Dự phòng Cơ yếu'}
+];
+/* Số lượng cấp (mới) = Số lượng cấp ± Số lượng điều chỉnh — tính runtime, không lưu rời.
+   Trả null khi chưa nhập Số lượng điều chỉnh hoặc chưa chọn Loại điều chỉnh. */
+function rowAfter(r){
+  if(r.delta===null || r.delta===undefined || !r.type) return null;
+  return r.type==='tang' ? (r.before + r.delta) : (r.before - r.delta);
+}
+var rowSeq = 12;
+var viewMode = 'group';
+var selectedRowIds = [];
+var filterType = '';        /* '' | 'tang' | 'giam' — ô lọc Loại điều chỉnh */
+
+function deleteRow(id){
+  if(!confirm('Xoá dòng này?')) return;
+  detailRows = detailRows.filter(function(r){return r.id!==id;});
+  selectedRowIds = selectedRowIds.filter(function(x){return x!==id;});
+  renderTable();
+}
+/* ===== Chọn nhiều dòng (checkbox đầu dòng) — thanh ngữ cảnh chỉ hiện khi có dòng được chọn,
+   đúng khuôn design.md Mục 9.3 điểm "Tách hành động theo phạm vi". ===== */
+function updateSelbar(){
+  var bar = document.getElementById('detailSelbar');
+  var n = selectedRowIds.length;
+  bar.style.display = n>0 ? 'flex' : 'none';
+  if(n>0) document.getElementById('detailSelCount').textContent = 'Đã chọn '+n+' dòng';
+  var allChk = document.getElementById('selectAllChk');
+  if(allChk){
+    var rowChks = [...document.querySelectorAll('.row-chk')];
+    allChk.checked = rowChks.length>0 && rowChks.every(function(c){return c.checked;});
+  }
+}
+function toggleRowSelect(id, checked){
+  if(checked){ if(selectedRowIds.indexOf(id)===-1) selectedRowIds.push(id); }
+  else { selectedRowIds = selectedRowIds.filter(function(x){return x!==id;}); }
+  updateSelbar();
+  var tr = document.querySelector('tr[data-row="'+id+'"]');
+  if(tr) tr.classList.toggle('row-selected', checked);
+}
+function toggleGroupSelect(ids, checked){
+  ids.forEach(function(id){
+    if(checked){ if(selectedRowIds.indexOf(id)===-1) selectedRowIds.push(id); }
+    else { selectedRowIds = selectedRowIds.filter(function(x){return x!==id;}); }
+  });
+  renderTable();
+}
+function toggleSelectAll(checked){
+  var ids = [...document.querySelectorAll('.row-chk')].map(function(c){return Number(c.getAttribute('data-row'));});
+  selectedRowIds = checked ? ids : [];
+  renderTable();
+}
+function clearSelection(){
+  selectedRowIds = [];
+  renderTable();
+}
+function bulkFillQty(){
+  if(!selectedRowIds.length) return;
+  var inp = document.getElementById('bulkFillInput');
+  var v = inp.value.trim();
+  if(v==='' || isNaN(Number(v)) || Number(v)<0){ alert('Nhập Số lượng cấp (mới) hợp lệ để điền cho các dòng đã chọn.'); inp.focus(); return; }
+  var n = Number(v);
+  detailRows.forEach(function(r){ if(selectedRowIds.indexOf(r.id)>-1) r.delta = n; });
+  inp.value = '';
+  renderTable();
+}
+function deleteSelectedRows(){
+  if(!selectedRowIds.length) return;
+  if(!confirm('Xoá '+selectedRowIds.length+' dòng đã chọn?')) return;
+  detailRows = detailRows.filter(function(r){ return selectedRowIds.indexOf(r.id)===-1; });
+  selectedRowIds = [];
+  renderTable();
+}
+function changeView(sel){ viewMode = sel.value; renderTable(); }
+function changeTypeFilter(v){ filterType = v; selectedRowIds = []; renderTable(); }
+function toggleGroup(gid){
+  var trs = document.querySelectorAll('tr[data-group="'+gid+'"]');
+  var chev = document.getElementById(gid+'-chev');
+  var isHidden = trs.length && trs[0].style.display==='none';
+  trs.forEach(function(tr){ tr.style.display = isHidden ? 'table-row' : 'none'; });
+  if(chev) chev.textContent = isHidden ? '▾' : '▸';
+}
+
+/* ===== "+ Nhập 1 dòng" — thêm thẳng 1 dòng biên tập vào CUỐI bảng (không còn popup), đúng khuôn
+   "dòng thêm nhanh" design.md Mục 9.3 điểm 23: chọn SPMM → tự hiện ĐVT; chọn Địa điểm triển khai
+   → nếu đã có trên QĐGCTKH thì tự hiện Số lượng cấp + Số lượng đã cấp; Số lượng cấp (mới) nhập
+   tay, bắt buộc; Ghi chú mục đích nhập tự do. */
+/* Mỗi lần bấm "+ Nhập 1 dòng" thêm 1 dòng "chờ nhập" (chưa chọn SPMM/Địa điểm) — bấm được
+   nhiều lần liên tiếp để có nhiều dòng chờ, điền lần lượt vào không theo thứ tự bắt buộc.
+   Tại trạng thái Mới, Số lượng cấp (mới) + Ghi chú mục đích LUÔN nhập/sửa lại được, kể cả
+   ở các dòng đã chọn xong SPMM/Địa điểm — không có bước "khoá dòng" riêng. */
+function addQuickRow(){
+  rowSeq++;
+  detailRows.push({id:rowSeq, spmm:'', unit:'', loc:'', type:'', before:0, tk:0, delta:null, note:''});
+  renderTable();
+  var el = document.getElementById('pendSpmm'+rowSeq);
+  if(el) el.focus();
+}
+function editRowSpmm(id, val){
+  var r = detailRows.find(function(x){return x.id===id;});
+  if(!r) return;
+  r.spmm = val; r.loc=''; r.unit = spmmData[val] ? spmmData[val].unit : ''; r.before=0; r.tk=0;
+  renderTable();
+}
+function editRowLoc(id, val){
+  var r = detailRows.find(function(x){return x.id===id;});
+  if(!r) return;
+  r.loc = val;
+  var locData = val && spmmData[r.spmm] ? spmmData[r.spmm].locations[val] : null;
+  r.before = locData ? locData.req : 0;
+  r.tk = locData ? locData.tk : 0;
+  renderTable();
+}
+function editRowType(id, val){
+  var r = detailRows.find(function(x){return x.id===id;});
+  if(r) r.type = val;
+  renderTable();
+}
+/* Nhập Số lượng điều chỉnh (delta, không âm) → Số lượng cấp (mới) tự tính lại tại chỗ. */
+/* Render lại bảng mà không mất chỗ đang gõ — dùng khi 1 ô nhập làm đổi số ở dòng nhóm */
+function renderTableKeepFocus(){
+  var el = document.activeElement;
+  var id = (el && el.id) ? el.id : null;
+  var pos = null;
+  try { pos = (el && typeof el.selectionStart === 'number') ? el.selectionStart : null; } catch(e){}
+  renderTable();
+  if(id){
+    var again = document.getElementById(id);
+    if(again){
+      again.focus();
+      if(pos !== null && again.setSelectionRange){ try { again.setSelectionRange(pos, pos); } catch(e){} }
+    }
+  }
+}
+function updateEditDelta(id, val){
+  var r = detailRows.find(function(x){return x.id===id;});
+  if(!r) return;
+  var n = val===''? null : Number(val);
+  if(n!==null && n<0) n = 0; /* chặn số âm */
+  r.delta = n;
+  var after = rowAfter(r);
+  var afterEl = document.getElementById('editAfter'+id);
+  if(afterEl) afterEl.value = after===null ? '' : after;
+  var warnEl = document.getElementById('editWarn'+id) || {style:{}};
+  /* Case: Kế hoạch 100, đã cấp (Số lượng đã cấp) 30 → điều chỉnh giảm không được đưa Số lượng
+     cấp (mới) xuống dưới 30, dù cột Số lượng đã cấp không còn hiện trên lưới — vẫn phải chặn
+     ngầm bằng dữ liệu r.tk (BR-014/E-quyet-dinh-trien-khai-009). */
+  if(r.delta!==null && r.delta<=0){
+    warnEl.textContent = 'Số lượng điều chỉnh phải lớn hơn 0';
+    warnEl.style.display = 'block';
+  } else if(after!==null && after<0){
+    warnEl.textContent = 'Số lượng cấp (mới) '+after+' bị âm — không hợp lệ';
+    warnEl.style.display = 'block';
+  } else if(r.type==='giam' && after!==null && after<r.tk){
+    warnEl.textContent = 'Số lượng cấp (mới) '+after+' thấp hơn Số lượng đã cấp ('+r.tk+') — không hợp lệ';
+    warnEl.style.display = 'block';
+  } else {
+    warnEl.style.display = 'none';
+  }
+  renderTableKeepFocus();      /* cập nhật tổng ở dòng nhóm SPMM + dòng tổng kê */
+}
+function updateEditNote(id, val){
+  var r = detailRows.find(function(x){return x.id===id;});
+  if(r) r.note = val;
+}
+/* Dòng CHỜ NHẬP — chưa đủ SPMM + Địa điểm, hiện dropdown để chọn. Số lượng cấp (mới)/Ghi chú
+   vẫn nhập được ngay từ đây, không cần chọn xong SPMM/Địa điểm trước. */
+function pendingRowHtml(r, stt){
+  var spmmOptions = '<option value="">-- Chọn --</option>' + Object.keys(spmmData).map(function(k){
+    return '<option'+(k===r.spmm?' selected':'')+'>'+k+'</option>';
+  }).join('');
+  var locOptions = '<option value="">-- Chọn --</option>';
+  if(r.spmm && spmmData[r.spmm]){
+    locOptions += Object.keys(spmmData[r.spmm].locations).map(function(l){
+      return '<option'+(l===r.loc?' selected':'')+'>'+l+'</option>';
+    }).join('');
+  }
+  return '<tr class="edit-row">' +
+    '<td></td>' +
+    '<td>'+(stt!==undefined?stt:'')+'</td>' +
+    '<td><select class="input sm" id="pendSpmm'+r.id+'" onchange="editRowSpmm('+r.id+',this.value)">'+spmmOptions+'</select></td>' +
+    '<td><select class="input sm" onchange="editRowLoc('+r.id+',this.value)"'+(r.spmm?'':' disabled')+'>'+locOptions+'</select></td>' +
+    '<td>'+(r.unit||'—')+'</td>' +
+    '<td class="num">'+(r.loc?r.before:'—')+'</td>' +
+    '<td><select class="input sm" onchange="editRowType('+r.id+',this.value)" required>' +
+      '<option value=""'+(r.type?'':' selected')+'>-- Chọn --</option>' +
+      '<option value="tang"'+(r.type==='tang'?' selected':'')+'>Điều chỉnh tăng</option>' +
+      '<option value="giam"'+(r.type==='giam'?' selected':'')+'>Điều chỉnh giảm</option>' +
+    '</select></td>' +
+    '<td class="num"><input class="input sm qty-edit-input" id="editDelta'+r.id+'" type="number" min="1" required placeholder="Bắt buộc" value="'+(r.delta===null||r.delta===undefined?'':r.delta)+'" oninput="updateEditDelta('+r.id+',this.value)">' +
+      '<div class="qty-warn" id="editWarn'+r.id+'" style="display:none"></div></td>' +
+    '<td><input class="input sm qty-edit-input" type="number" id="editAfter'+r.id+'" value="'+(rowAfter(r)===null?'':rowAfter(r))+'" disabled></td>' +
+    '<td><input class="input sm" type="text" placeholder="Ghi chú" value="'+r.note+'" oninput="updateEditNote('+r.id+',this.value)"></td>' +
+    '<td class="icon-del" onclick="deleteRow('+r.id+')">🗑</td></tr>';
+}
+/* Dòng đã chọn xong SPMM + Địa điểm — SPMM/Địa điểm/Loại điều chỉnh cố định (không sửa lại,
+   xoá-thêm-lại nếu chọn nhầm); riêng Số lượng điều chỉnh + Ghi chú vẫn là ô nhập LUÔN sửa được. */
+function rowLineHtml(r, hideSpmm, stt, groupId){
+  var isTang = r.type==='tang';
+  var typeLabel = isTang ? 'Điều chỉnh tăng' : 'Điều chỉnh giảm';
+  /* Trải phẳng: hiện "Mã - Tên SPMM", cột cố định bề rộng — tên dài cắt bằng …, rê chuột xem đủ.
+     Nhóm theo SPMM: ô để trống vì tên đã nằm ở dòng nhóm. */
+  var spmmCell = hideSpmm ? '' : '<span class="spmm-cell" title="'+spmmLabel(r.spmm)+'">'+spmmLabel(r.spmm)+'</span>';
+  var groupAttr = groupId ? ' data-group="'+groupId+'"' : '';
+  var checked = selectedRowIds.indexOf(r.id)>-1;
+  var after = rowAfter(r);
+  var invalid = r.type==='giam' && after!==null && after<r.tk;
+  var mismatch = spmmData[r.spmm] && spmmData[r.spmm].locations[r.loc] && spmmData[r.spmm].locations[r.loc].req !== r.before;
+  return '<tr class="'+(isTang?'role-dich':'role-nguon')+(checked?' row-selected':'')+(mismatch?' row-invalid':'')+'" data-row="'+r.id+'"'+groupAttr+(mismatch?' title="Số lượng cấp đã đổi so với lúc lập — kiểm tra kỹ trước khi Ban hành"':'')+'>' +
+    '<td><input type="checkbox" class="row-chk" data-row="'+r.id+'"'+(checked?' checked':'')+' onchange="toggleRowSelect('+r.id+',this.checked)"></td>' +
+    '<td>'+(stt!==undefined?stt:'')+'</td>' +
+    '<td>'+spmmCell+'</td>' +
+    '<td>'+r.loc+'</td><td>'+r.unit+'</td>' +
+    '<td class="num">'+r.before+'</td>' +
+    '<td>'+typeLabel+'</td>' +
+    '<td class="num"><input class="input sm qty-edit-input" id="editDelta'+r.id+'" type="number" min="1" required placeholder="Bắt buộc" value="'+(r.delta===null||r.delta===undefined?'':r.delta)+'" oninput="updateEditDelta('+r.id+',this.value)">' +
+      '<div class="qty-warn" id="editWarn'+r.id+'" style="'+(invalid?'':'display:none')+'">'+(invalid?('Số lượng cấp (mới) '+after+' thấp hơn Số lượng đã cấp ('+r.tk+') — không hợp lệ'):'')+'</div></td>' +
+    '<td class="num"><input class="input sm qty-edit-input" type="number" id="editAfter'+r.id+'" value="'+(after===null?'':after)+'" disabled></td>' +
+    '<td><input class="input sm" type="text" placeholder="Ghi chú" value="'+r.note+'" oninput="updateEditNote('+r.id+',this.value)"></td>' +
+    '<td class="icon-del" onclick="deleteRow('+r.id+')">🗑</td></tr>';
+}
+function renderTable(){
+  var tbody = document.getElementById('detailBody');
+  renderFPickLists();
+  var confirmedRows = detailRows.filter(function(r){
+    if(!(r.spmm && r.loc && r.type)) return false;
+    if(filterType && r.type!==filterType) return false;      /* ô lọc Loại điều chỉnh */
+    if(filterSpmmOff.indexOf(r.spmm)>-1) return false;       /* ô lọc SPMM */
+    if(filterLocOff.indexOf(r.loc)>-1) return false;         /* ô lọc Địa điểm triển khai */
+    return true;
+  });
+  var pendingRows = detailRows.filter(function(r){ return !(r.spmm && r.loc && r.type); });
+  var spmmSet={}, locSet={};
+  detailRows.forEach(function(r){ if(r.spmm) spmmSet[r.spmm]=1; if(r.loc) locSet[r.loc]=1; });
+  var summaryEl = document.getElementById('detailSummary');
+  if(summaryEl) summaryEl.textContent = Object.keys(spmmSet).length+' sản phẩm · '+Object.keys(locSet).length+' địa điểm triển khai · '+detailRows.length+' dòng chi tiết';
+  if(!confirmedRows.length && !pendingRows.length){
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-hint">Chưa có dòng nào. Bấm "+ Nhập 1 dòng" hoặc "Nhập hàng loạt" để bắt đầu.</td></tr>';
+    updateSelbar();
+    return;
+  }
+  var html='', pendingHtml='';
+  if(viewMode==='flat'){
+    var stt=1;
+    confirmedRows.forEach(function(r){ html += rowLineHtml(r, false, stt); stt++; });
+    pendingRows.forEach(function(r){ pendingHtml += pendingRowHtml(r, stt); stt++; });
+    var totalRowHtml = '';
+    if(confirmedRows.length){
+      var tBefore=0, tNet=0, tAfter=0;
+      confirmedRows.forEach(function(r){
+        tBefore += r.before;
+        tNet    += (r.type==='tang' ? (r.delta||0) : -(r.delta||0));
+        tAfter  += (rowAfter(r)||0);
+      });
+      var tNetTxt = (tNet>0?'+':'')+tNet;
+      var tNetCell = tNet===0 ? tNetTxt : '<span class="net-warn" title="Tổng tăng và giảm chưa bằng nhau">'+tNetTxt+'</span>';
+      totalRowHtml = '<tr class="group-row"><td colspan="5">Tổng cộng</td>' +
+        '<td class="num">'+tBefore+'</td><td></td><td class="num">'+tNetCell+'</td><td class="num">'+tAfter+'</td>' +
+        '<td colspan="2"></td></tr>';
+    }
+    tbody.innerHTML = html + pendingHtml + totalRowHtml;
+    updateSelbar();
+  } else {
+    pendingHtml = pendingRows.map(function(r){ return pendingRowHtml(r); }).join('');
+    var groups={}, order=[];
+    confirmedRows.forEach(function(r){ if(!groups[r.spmm]){groups[r.spmm]=[]; order.push(r.spmm);} groups[r.spmm].push(r); });
+    order.forEach(function(spmm, gi){
+      var list = groups[spmm], unit = list[0].unit, gid = 'grp'+gi;
+      /* Cột gom (dòng SPMM): hiện ĐVT + cộng tổng Số lượng cấp và Số lượng cấp (mới) qua mọi dòng trong nhóm */
+      /* Tổng điều chỉnh = NET có dấu (Σ tăng − Σ giảm) để 3 cột khớp hàng ngang:
+         Σ SL cấp (mới) = Σ SL cấp + net. Net ≠ 0 = QĐTK chưa cân đối (thiếu dòng đối ứng). */
+      var sumBefore=0,sumNet=0,sumAfter=0;
+      list.forEach(function(r){
+        sumBefore += r.before;
+        sumNet    += (r.type==='tang' ? (r.delta||0) : -(r.delta||0));
+        sumAfter  += (rowAfter(r)||0);
+      });
+      var netTxt = (sumNet>0?'+':'')+sumNet;
+      var netCell = sumNet===0 ? netTxt : '<span class="net-warn" title="Tổng tăng và giảm của SPMM này chưa bằng nhau">'+netTxt+'</span>';
+      var spmmCode = String(gi+1).padStart(4,'0');
+      var expandDefault = gi<2;
+      var groupIds = list.map(function(r){return r.id;}).join(',');
+      var groupAllSelected = list.every(function(r){return selectedRowIds.indexOf(r.id)>-1;});
+      html += '<tr class="group-row" onclick="toggleGroup(\''+gid+'\')">' +
+        '<td onclick="event.stopPropagation()"><input type="checkbox"'+(groupAllSelected?' checked':'')+' onchange="toggleGroupSelect(['+groupIds+'],this.checked)"></td>' +
+        '<td>'+(gi+1)+'</td>' +
+        '<td><span class="grp-chev" id="'+gid+'-chev">'+(expandDefault?'▾':'▸')+'</span>'+spmmCode+' - '+spmm+'</td>' +
+        '<td></td><td>'+unit+'</td>' +
+        '<td class="num">'+sumBefore+'</td><td></td><td class="num">'+netCell+'</td><td class="num">'+sumAfter+'</td>' +
+        '<td></td><td></td></tr>';
+      list.forEach(function(r){ html += rowLineHtml(r, true, undefined, gid); });
+    });
+    tbody.innerHTML = html + pendingHtml;
+    updateSelbar();
+    order.forEach(function(spmm,gi){
+      if(gi<2) return; /* 2 nhóm đầu mở sẵn, giống ảnh mẫu — còn lại gập */
+      document.querySelectorAll('tr[data-group="grp'+gi+'"]').forEach(function(tr){ tr.style.display='none'; });
+    });
+  }
+}
+
+/* ===== "Nhập hàng loạt" modal — tick N SPMM × N địa điểm, sinh dòng TRỐNG (chưa có số lượng).
+   Theo design.md Mục 9.3: hộp thoại chọn hàng loạt KHÔNG có ô nhập số lượng; dòng vừa sinh được
+   tích sẵn để dùng ngay "Điền số hàng loạt"; tổ hợp đã có hiện mờ; nút Xác nhận không gắn số. */
+var bulkSelSpmm = [];       /* SPMM đã tích ở bước ① */
+var bulkSelLocs  = [];      /* Địa điểm đã tích ở bước ② */
+var bulkEntries  = {};      /* 'spmm|loc' -> {type:'', delta:null} */
+var bulkRemoved  = {};      /* tổ hợp user xoá tay khỏi bảng Chi tiết nhập */
+var bulkGridSel  = [];      /* key dòng đang tích trong bảng Chi tiết nhập */
+var bulkErrors   = {};      /* key -> {type, delta, msg} sau khi bấm Xác nhận */
+var bulkErrList  = [];      /* danh sách lỗi theo thứ tự dòng, để dựng thông báo */
+
+function bulkKey(s,l){ return s+'|'+l; }
+function existingCombos(){
+  var m = {};
+  detailRows.forEach(function(r){ if(r.spmm && r.loc) m[bulkKey(r.spmm, r.loc)] = 1; });
+  return m;
+}
+/* Địa điểm đang có trên QĐGCTKH (gộp từ mọi SPMM) — 2 điểm nội bộ lên đầu */
+function qdgctkhLocations(){
+  var set = {}, list = [];
+  Object.keys(spmmData).forEach(function(s){
+    Object.keys(spmmData[s].locations).forEach(function(l){ set[l] = 1; });
+  });
+  ['Dự phòng Cục','Dự phòng Cơ yếu'].forEach(function(l){ if(set[l]){ list.push(l); delete set[l]; } });
+  return list.concat(Object.keys(set));
+}
+/* Tích "Thêm địa điểm mới" → đổi nguồn danh sách sang TOÀN BỘ Đơn vị */
+function bulkLocSource(){
+  return document.getElementById('bulkNewLocToggle').checked ? donViCatalog.slice() : qdgctkhLocations();
+}
+function toggleMPick(id){
+  var panel = document.getElementById(id+'Panel');
+  var wasOpen = panel.classList.contains('show');
+  document.querySelectorAll('.mpick .colpick-panel').forEach(function(p){ p.classList.remove('show'); });
+  if(!wasOpen) panel.classList.add('show');
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.mpick').forEach(function(mp){
+    var panel = mp.querySelector('.colpick-panel');
+    if(panel && !mp.contains(e.target)) panel.classList.remove('show');
+  });
+});
+
+function openBulkModal(){
+  document.getElementById('modalBulk').classList.add('show');
+  bulkSelSpmm = []; bulkSelLocs = []; bulkEntries = {}; bulkRemoved = {}; bulkGridSel = []; bulkErrors = {};
+  document.getElementById('bulkSpmmSearch').value = '';
+  document.getElementById('bulkLocSearch').value = '';
+  document.getElementById('bulkNewLocToggle').checked = false;
+  document.getElementById('bulkNote').value = '';
+  bulkHideErrBanner();
+  bulkRenderSpmmList(); bulkRenderLocList(); bulkRenderGrid();
+}
+
+/* ---- ① SPMM: dropdown tìm kiếm + tích chọn (danh mục dài nên không bày phẳng ra màn) ---- */
+function bulkRenderSpmmList(){
+  var q = (document.getElementById('bulkSpmmSearch').value||'').toLowerCase();
+  var keys = Object.keys(spmmCatalog).filter(function(k){
+    return spmmLabel(k).toLowerCase().indexOf(q)>-1;
+  });
+  var box = document.getElementById('bulkSpmmList');
+  box.innerHTML = keys.length ? keys.map(function(k){
+    var checked = bulkSelSpmm.indexOf(k)>-1;
+    return '<label><input type="checkbox"'+(checked?' checked':'')+
+      ' onchange="bulkToggleSpmm(\''+k.replace(/'/g,"\\'")+'\',this.checked)">'+spmmLabel(k)+'</label>';
+  }).join('') : '<span class="hint">Không tìm thấy sản phẩm</span>';
+  bulkUpdateSpmmLabel();
+}
+function bulkUpdateSpmmLabel(){
+  document.getElementById('bulkSpmmPickLabel').textContent =
+    bulkSelSpmm.length ? (bulkSelSpmm.length+' sản phẩm được chọn') : 'Chọn SPMM';
+}
+function bulkToggleSpmm(v, checked){
+  if(checked){ if(bulkSelSpmm.indexOf(v)===-1) bulkSelSpmm.push(v); }
+  else {
+    bulkSelSpmm = bulkSelSpmm.filter(function(x){return x!==v;});
+    Object.keys(bulkEntries).forEach(function(k){ if(k.split('|')[0]===v) delete bulkEntries[k]; });
+  }
+  bulkUpdateSpmmLabel(); bulkRenderGrid();
+}
+function bulkClearSpmm(){
+  bulkSelSpmm = []; bulkEntries = {};
+  bulkRenderSpmmList(); bulkRenderGrid();
+}
+
+/* ---- ② Địa điểm: dropdown tìm kiếm + tích chọn; tích chọn = insert dòng vào Chi tiết nhập ---- */
+function bulkRenderLocList(){
+  var q = (document.getElementById('bulkLocSearch').value||'').toLowerCase();
+  var inPlan = {}; qdgctkhLocations().forEach(function(l){ inPlan[l]=1; });
+  var locs = bulkLocSource().filter(function(l){ return l.toLowerCase().indexOf(q)>-1; });
+  var box = document.getElementById('bulkLocList');
+  box.innerHTML = locs.length ? locs.map(function(l){
+    var checked = bulkSelLocs.indexOf(l)>-1;
+    return '<label><input type="checkbox"'+(checked?' checked':'')+
+      ' onchange="bulkToggleLoc(\''+l.replace(/'/g,"\\'")+'\',this.checked)">'+l+
+      (inPlan[l]?'':' <span class="muted">(mới)</span>')+'</label>';
+  }).join('') : '<span class="hint">Không tìm thấy địa điểm</span>';
+  bulkUpdateLocLabel();
+}
+function bulkUpdateLocLabel(){
+  document.getElementById('bulkLocPickLabel').textContent =
+    bulkSelLocs.length ? (bulkSelLocs.length+' địa điểm được chọn') : 'Chọn địa điểm';
+}
+function bulkToggleLoc(v, checked){
+  if(checked){
+    if(bulkSelLocs.indexOf(v)===-1) bulkSelLocs.push(v);
+    /* tích lại địa điểm đã xoá tay trước đó thì cho hiện lại */
+    Object.keys(bulkRemoved).forEach(function(k){ if(k.split('|')[1]===v) delete bulkRemoved[k]; });
+  } else {
+    bulkSelLocs = bulkSelLocs.filter(function(x){return x!==v;});
+    Object.keys(bulkEntries).forEach(function(k){ if(k.split('|')[1]===v) delete bulkEntries[k]; });
+  }
+  bulkUpdateLocLabel(); bulkRenderGrid();
+}
+function bulkClearLoc(){
+  bulkSelLocs = []; bulkEntries = {}; bulkRemoved = {};
+  bulkRenderLocList(); bulkRenderGrid();
+}
+function bulkToggleNewLoc(){
+  /* Bỏ tích → loại các địa điểm đã chọn mà không thuộc QĐGCTKH */
+  if(!document.getElementById('bulkNewLocToggle').checked){
+    var inPlan = {}; qdgctkhLocations().forEach(function(l){ inPlan[l]=1; });
+    bulkSelLocs.filter(function(l){ return !inPlan[l]; }).forEach(function(l){
+      Object.keys(bulkEntries).forEach(function(k){ if(k.split('|')[1]===l) delete bulkEntries[k]; });
+    });
+    bulkSelLocs = bulkSelLocs.filter(function(l){ return inPlan[l]; });
+  }
+  document.getElementById('bulkLocSearch').value = '';
+  bulkRenderLocList(); bulkRenderGrid();
+}
+
+/* ---- ③ Bảng Chi tiết nhập — mỗi tổ hợp (SPMM đã chọn × Địa điểm đã tích) là 1 dòng ---- */
+function bulkGridRows(){
+  var out = [], ex = existingCombos();
+  bulkSelSpmm.forEach(function(s){
+    bulkSelLocs.forEach(function(l){
+      var key = bulkKey(s,l);
+      if(bulkRemoved[key]) return;
+      if(ex[key]) return;          /* tổ hợp đã có trong phiếu — ẩn hẳn, sửa thẳng ở bảng chính */
+      var d = spmmData[s] ? spmmData[s].locations[l] : null;
+      out.push({key:key, spmm:s, loc:l, before: d?d.req:0, tk: d?d.tk:0, inPlan: !!d});
+    });
+  });
+  return out;
+}
+function bulkRenderGrid(){
+  var body = document.getElementById('bulkGridBody');
+  var rows = bulkGridRows();
+  /* giữ lại lựa chọn còn hợp lệ (dòng chưa bị bỏ tích/xoá) */
+  var validKeys = {};
+  rows.forEach(function(g){ validKeys[g.key] = 1; });
+  bulkGridSel = bulkGridSel.filter(function(k){ return validKeys[k]; });
+
+  if(!rows.length){
+    body.innerHTML = '<tr><td colspan="9" class="empty-hint">Chọn SPMM ở bước ① rồi tích địa điểm ở bước ② — dòng sẽ tự thêm vào đây.</td></tr>';
+    bulkUpdateGridSelbar(); bulkUpdatePreview(); return;
+  }
+  body.innerHTML = rows.map(function(g, idx){
+    var e = bulkEntries[g.key] || {type:'', delta:null};
+    var after = (e.type && e.delta!==null && e.delta!=='') ? (e.type==='tang' ? g.before+Number(e.delta) : g.before-Number(e.delta)) : null;
+    var invalid = e.type==='giam' && after!==null && after<g.tk;
+    var checked = bulkGridSel.indexOf(g.key)>-1;
+    var err = bulkErrors[g.key];
+    var trCls = err ? 'row-invalid' : (checked ? 'row-selected' : '');
+    return '<tr'+(trCls?' class="'+trCls+'"':'')+'>' +
+      '<td><input type="checkbox" class="bulk-grid-chk" data-key="'+g.key+'"'+(checked?' checked':'')+' onchange="bulkToggleGridRow(\''+g.key+'\',this.checked)"></td>' +
+      '<td>'+(idx+1)+'</td>' +
+      '<td><span class="bulk-spmm-cell" title="'+spmmLabel(g.spmm)+'">'+spmmLabel(g.spmm)+'</span></td>' +
+      '<td>'+g.loc+'</td>' +
+      '<td class="num">'+g.before+'</td>' +
+      '<td><select class="input sm'+(err&&err.type?' field-error':'')+'" onchange="bulkSetType(\''+g.key+'\',this.value)">' +
+        '<option value=""'+(e.type?'':' selected')+'>-- Chọn --</option>' +
+        '<option value="tang"'+(e.type==='tang'?' selected':'')+'>Điều chỉnh tăng</option>' +
+        '<option value="giam"'+(e.type==='giam'?' selected':'')+'>Điều chỉnh giảm</option>' +
+      '</select></td>' +
+      '<td class="num"><input class="input sm'+(err&&err.delta?' field-error':'')+'" type="number" min="1" required value="'+(e.delta===null||e.delta===undefined?'':e.delta)+'" oninput="bulkSetDelta(\''+g.key+'\',this.value)">' +
+        (err&&err.msg ? '<div class="qty-warn">'+err.msg+'</div>' : (invalid?'<div class="qty-warn">Thấp hơn Số lượng đã cấp ('+g.tk+')</div>':'')) + '</td>' +
+      '<td class="num">'+(after===null?'—':('<b>'+after+'</b>'))+'</td>' +
+      '<td class="icon-del" onclick="bulkRemoveRow(\''+g.key+'\')">🗑</td></tr>';
+  }).join('');
+  bulkUpdateGridSelbar();
+  bulkUpdatePreview();
+}
+/* ---- Chọn nhiều dòng trong bảng Chi tiết nhập: điền số lượng / xoá hàng loạt ---- */
+function bulkUpdateGridSelbar(){
+  var bar = document.getElementById('bulkGridSelbar');
+  var n = bulkGridSel.length;
+  bar.style.display = n>0 ? 'flex' : 'none';
+  if(n>0) document.getElementById('bulkGridSelCount').textContent = 'Đã chọn '+n+' dòng';
+  var allChk = document.getElementById('bulkGridSelAll');
+  if(allChk){
+    var chks = [...document.querySelectorAll('.bulk-grid-chk')];
+    allChk.checked = chks.length>0 && chks.every(function(c){return c.checked;});
+  }
+}
+function bulkToggleGridRow(key, checked){
+  if(checked){ if(bulkGridSel.indexOf(key)===-1) bulkGridSel.push(key); }
+  else bulkGridSel = bulkGridSel.filter(function(k){return k!==key;});
+  bulkRenderGrid();
+}
+function bulkToggleSelectAll(checked){
+  var keys = [...document.querySelectorAll('.bulk-grid-chk')].map(function(c){ return c.getAttribute('data-key'); });
+  bulkGridSel = checked ? keys : [];
+  bulkRenderGrid();
+}
+function bulkGridClearSel(){ bulkGridSel = []; bulkRenderGrid(); }
+/* Điền hàng loạt cho các dòng đang tích: Loại điều chỉnh và/hoặc Số lượng điều chỉnh.
+   Bỏ trống cái nào thì giữ nguyên cái đó ở từng dòng. */
+function bulkGridFillQty(){
+  if(!bulkGridSel.length) return;
+  var typeSel = document.getElementById('bulkGridFillType');
+  var inp = document.getElementById('bulkGridFillInput');
+  var type = typeSel.value;
+  var v = inp.value.trim();
+  if(!type && v===''){ alert('Chọn Loại điều chỉnh hoặc nhập Số lượng điều chỉnh để điền cho các dòng đã chọn.'); typeSel.focus(); return; }
+  var n = null;
+  if(v!==''){
+    if(isNaN(Number(v)) || Number(v)<=0){ alert('Số lượng điều chỉnh phải là số lớn hơn 0.'); inp.focus(); return; }
+    n = Number(v);
+  }
+  bulkGridSel.forEach(function(k){
+    var e = bulkEnsureEntry(k);
+    if(type) e.type = type;
+    if(n!==null) e.delta = n;
+    bulkClearRowError(k);
+  });
+  typeSel.value = ''; inp.value = '';
+  bulkRenderGrid();
+}
+function bulkGridDeleteSelected(){
+  if(!bulkGridSel.length) return;
+  if(!confirm('Xoá '+bulkGridSel.length+' dòng đã chọn khỏi bảng Chi tiết nhập?')) return;
+  bulkGridSel.forEach(function(k){ bulkRemoved[k] = 1; delete bulkEntries[k]; });
+  bulkGridSel = [];
+  bulkRenderGrid();
+}
+function bulkEnsureEntry(key){
+  if(!bulkEntries[key]) bulkEntries[key] = {type:'', delta:null};
+  return bulkEntries[key];
+}
+function bulkSetType(key, val){
+  bulkEnsureEntry(key).type = val;
+  bulkClearRowError(key);           /* sửa dòng nào thì gỡ lỗi dòng đó */
+  bulkRenderGrid();
+}
+function bulkSetDelta(key, val){
+  var e = bulkEnsureEntry(key);
+  var n = val===''? null : Number(val);
+  if(n!==null && n<0) n = 0;
+  e.delta = n;
+  bulkClearRowError(key);
+  bulkRenderGrid();
+}
+function bulkRemoveRow(key){
+  bulkRemoved[key] = 1;
+  delete bulkEntries[key];
+  bulkClearRowError(key);
+  bulkGridSel = bulkGridSel.filter(function(k){return k!==key;});
+  bulkRenderGrid();
+}
+
+/* ===== Rule khi bấm Xác nhận =====
+   - Dòng chưa chạm (trống cả 2 trường bắt buộc)      → bỏ qua, không báo lỗi
+   - Dòng nhập dở (thiếu 1 trong 2)                   → CHẶN, tô đỏ ô còn trống
+   - Số lượng điều chỉnh ≤ 0                          → CHẶN (điều chỉnh 0 không đổi kế hoạch)
+   - Giảm làm Số lượng cấp (mới) < Số lượng đã cấp    → CHẶN (BR-014 / E-quyet-dinh-trien-khai-009)
+   - Giảm làm Số lượng cấp (mới) < 0                  → CHẶN (SC-04, không để SL yêu cầu âm)
+   - Tổ hợp đã có trong phiếu                         → khoá sẵn, không xét                        */
+function bulkValidateRows(){
+  var errList = [], ok = [], touched = 0;
+  bulkGridRows().forEach(function(g, idx){
+    var e = bulkEntries[g.key];
+    var hasType  = !!(e && e.type);
+    var hasDelta = !!(e && e.delta!==null && e.delta!==undefined && e.delta!=='');
+    if(!hasType && !hasDelta) return;      /* chưa chạm vào dòng này */
+    touched++;
+    var er = null;
+    if(!hasType){
+      er = {type:true, code:'MISS_TYPE', msg:'Chưa chọn Loại điều chỉnh'};
+    } else if(!hasDelta){
+      er = {delta:true, code:'MISS_DELTA', msg:'Chưa nhập Số lượng điều chỉnh'};
+    } else if(Number(e.delta) <= 0){
+      er = {delta:true, code:'ZERO', msg:'Số lượng điều chỉnh phải lớn hơn 0'};
+    } else {
+      var after = e.type==='tang' ? g.before + Number(e.delta) : g.before - Number(e.delta);
+      if(after < 0){
+        er = {delta:true, code:'NEGATIVE', msg:'Số lượng cấp (mới) '+after+' bị âm'};
+      } else if(e.type==='giam' && after < g.tk){
+        er = {delta:true, code:'BELOW_TK', msg:'Số lượng cấp (mới) '+after+' thấp hơn Số lượng đã cấp ('+g.tk+')'};
+      }
+    }
+    if(er) errList.push({key:g.key, er:er, g:g, stt:idx+1});
+    else ok.push({g:g, e:e});
+  });
+  return {errList:errList, ok:ok, touched:touched};
+}
+function bulkUpdatePreview(){
+  var rows = bulkGridRows();
+  var v = bulkValidateRows();
+  var nTang = v.ok.filter(function(x){return x.e.type==='tang';}).length;
+  var nGiam = v.ok.length - nTang;
+  var sumTang = 0, sumGiam = 0;
+  v.ok.forEach(function(x){ if(x.e.type==='tang') sumTang += Number(x.e.delta); else sumGiam += Number(x.e.delta); });
+  var el = document.getElementById('bulkPreview');
+  if(!rows.length){
+    el.textContent = 'Chưa có dòng nào.';
+  } else if(!v.touched){
+    el.innerHTML = '<b>'+rows.length+' dòng</b> trong bảng — chưa dòng nào nhập Loại điều chỉnh và Số lượng điều chỉnh.';
+  } else {
+    el.innerHTML = 'Sẽ thêm <b>'+v.ok.length+'/'+rows.length+' dòng</b>: '+nTang+' tăng (+'+sumTang+') · '+nGiam+' giảm (−'+sumGiam+')';
+  }
+  /* Nút bật khi user đã chạm ít nhất 1 dòng — bấm mới validate và chỉ ra chỗ sai */
+  document.getElementById('bulkConfirmBtn').disabled = !v.touched;
+}
+/* Highlight TẤT CẢ dòng lỗi; thông báo liệt kê tối đa 3 dòng một lúc */
+var BULK_ERR_MAX = 3;
+function bulkShowErrBanner(){
+  var banner = document.getElementById('bulkErrBanner');
+  if(!bulkErrList.length){ banner.style.display = 'none'; return; }
+  var shown = bulkErrList.slice(0, BULK_ERR_MAX).map(function(it){
+    return '<li><b>Dòng '+it.stt+'</b> · '+spmmLabel(it.g.spmm)+' · '+it.g.loc+' — '+it.er.msg+'</li>';
+  }).join('');
+  var rest = bulkErrList.length - BULK_ERR_MAX;
+  document.getElementById('bulkErrBannerText').innerHTML =
+    '<b>'+bulkErrList.length+' dòng chưa hợp lệ</b>' +
+    '<ul class="errlist">'+shown+'</ul>' +
+    (rest > 0 ? '<div class="errmore">… và '+rest+' dòng khác</div>' : '');
+  banner.style.display = 'flex';
+}
+function bulkHideErrBanner(){
+  bulkErrList = []; bulkErrors = {};
+  document.getElementById('bulkErrBanner').style.display = 'none';
+}
+/* User sửa 1 ô → gỡ lỗi của đúng dòng đó, thông báo tự rút gọn lại */
+function bulkClearRowError(key){
+  if(!bulkErrors[key]) return;
+  delete bulkErrors[key];
+  bulkErrList = bulkErrList.filter(function(it){ return it.key !== key; });
+  bulkShowErrBanner();
+}
+function confirmBulk(){
+  var confirmBtn = document.getElementById('bulkConfirmBtn');
+  if(confirmBtn && confirmBtn.disabled) return;   /* chống bấm lặp (BR-quyet-dinh-trien-khai-016) */
+  var v = bulkValidateRows();
+  if(v.errList.length){
+    bulkErrList = v.errList;                 /* highlight tất cả dòng lỗi */
+    bulkErrors = {};
+    v.errList.forEach(function(it){ bulkErrors[it.key] = it.er; });
+    bulkShowErrBanner();
+    bulkRenderGrid();
+    var errRow = document.querySelector('#bulkGridBody tr.row-invalid');
+    if(errRow) errRow.scrollIntoView({block:'center'});
+    return;                                  /* CHẶN — không đóng modal, giữ nguyên số đã gõ */
+  }
+  bulkErrList = []; bulkErrors = {};
+  bulkHideErrBanner();
+  if(!v.ok.length) return;
+  var note = document.getElementById('bulkNote').value.trim();
+  var newIds = [];
+  v.ok.forEach(function(x){
+    rowSeq++;
+    newIds.push(rowSeq);
+    detailRows.push({id:rowSeq, spmm:x.g.spmm, unit:spmmUnit(x.g.spmm), loc:x.g.loc,
+      type:x.e.type, before:x.g.before, tk:x.g.tk, delta:Number(x.e.delta), note:note});
+  });
+  selectedRowIds = newIds;
+  closeModal('modalBulk');
+  bulkSelSpmm = []; bulkSelLocs = []; bulkEntries = {}; bulkRemoved = {}; bulkGridSel = []; bulkErrors = {};
+  renderTable();
+}
+/* Xuất phụ lục (Excel) — bước 2 userflow: xuất đúng bảng Mục II đang hiển thị (chỉ dòng đã hoàn tất)
+   để đính kèm công văn đề nghị trên eOffice (thực hiện ngoài hệ thống). File .csv mở được thẳng
+   bằng Excel (BOM UTF-8 giữ dấu tiếng Việt) — không tự đính kèm ngược vào QĐTK. */
+function xuatPhuLucExcel(){
+  var rows = detailRows.filter(function(r){ return r.spmm && r.loc && r.type; });
+  if(!rows.length){ alert('Chưa có dòng điều chỉnh nào để xuất phụ lục.'); return; }
+  var header = ['STT','Mã SPMM','Tên SPMM','Địa điểm triển khai','ĐVT','Số lượng cấp','Loại điều chỉnh','Số lượng điều chỉnh','Số lượng cấp (mới)','Ghi chú mục đích'];
+  var csvEscape = function(v){ v = String(v==null?'':v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; };
+  var lines = [header.map(csvEscape).join(',')];
+  rows.forEach(function(r, i){
+    var typeLabel = r.type==='tang' ? 'Điều chỉnh tăng' : 'Điều chỉnh giảm';
+    lines.push([i+1, (spmmCatalog[r.spmm]?spmmCatalog[r.spmm].code:''), r.spmm, r.loc, r.unit, r.before, typeLabel, r.delta, rowAfter(r), r.note].map(csvEscape).join(','));
+  });
+  var blob = new Blob(['﻿'+lines.join('\r\n')], {type:'text/csv;charset=utf-8;'});
+  var soPhieu = (document.querySelector('#scr-lap .field input[disabled]')||{}).value || 'QDTK';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'phu-luc-'+soPhieu.replace(/\//g,'-')+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+var excelSelectedFile = null;
+function openExcelModal(){
+  excelSelectedFile = null;
+  document.getElementById('excelFileInput').value = '';
+  document.getElementById('excelFileCard').classList.remove('has-file');
+  document.getElementById('excelFileCardText').innerHTML = 'Bấm để chọn file <b>.xlsx / .xls / .csv</b> từ máy';
+  document.getElementById('excelImportBtn').disabled = true;
+  document.getElementById('excelImportOk').style.display = 'none';
+  document.getElementById('modalExcel').classList.add('show');
+}
+function handleExcelFileSelect(e){
+  var f = e.target.files[0];
+  if(!f) return;
+  excelSelectedFile = f;
+  document.getElementById('excelFileCard').classList.add('has-file');
+  document.getElementById('excelFileCardText').textContent = '📄 ' + f.name;
+  document.getElementById('excelImportBtn').disabled = false;
+  document.getElementById('excelImportOk').style.display = 'none';
+}
+function confirmExcelImport(){
+  if(!excelSelectedFile) return;
+  /* demo: không có backend đọc thật nội dung file — mô phỏng nhập thành công N dòng */
+  var demoCount = Math.max(1, Math.floor(Math.random()*5)+1);
+  document.getElementById('excelImportedCount').textContent = demoCount;
+  document.getElementById('excelImportOk').style.display = 'block';
+  var link = document.getElementById('excelSavedFileLink');
+  link.href = URL.createObjectURL(excelSelectedFile);
+  link.download = excelSelectedFile.name;
+}
+function openAttachModal(){document.getElementById('modalAttach').classList.add('show')}
+
+/* ===== Tab "Chi tiết thay đổi" (màn mô phỏng QĐGCTKH) — ledger, mỗi dòng ĐỘC LẬP.
+   date dùng để sắp QĐTK mới nhất lên trước (ISO để so sánh chuỗi đúng thứ tự). ===== */
+var changeLedger = [
+  {id:1, code:'0014', spmm:'Máy mã hoá X', loc:'Dự phòng Cục', unit:'Chiếc', type:'giam', before:15, delta:-5, after:10, qdtk:'QD-2026-001', dateIso:'2026-08-16', date:'16/08/2026', nguoiBanHanh:'Trần Thị B', note:'Cấp bổ sung cho Đà Nẵng từ Dự phòng Cục', he:'Cục QLKTNVMM'},
+  {id:2, code:'0014', spmm:'Máy mã hoá X', loc:'Đà Nẵng (mới)', unit:'Chiếc', type:'tang', before:0, delta:5, after:5, qdtk:'QD-2026-001', dateIso:'2026-08-16', date:'16/08/2026', nguoiBanHanh:'Trần Thị B', note:'Cấp bổ sung cho Đà Nẵng từ Dự phòng Cục', he:'Cục QLKTNVMM'},
+  {id:3, code:'0014', spmm:'Máy mã hoá X', loc:'Dự phòng Cơ yếu', unit:'Chiếc', type:'giam', before:20, delta:-5, after:15, qdtk:'QD-2026-098', dateIso:'2026-08-10', date:'10/08/2026', nguoiBanHanh:'Nguyễn Văn C', note:'Điều chuyển về Dự phòng Cục', he:'Cục QLKTNVMM'},
+  {id:4, code:'0014', spmm:'Máy mã hoá X', loc:'Dự phòng Cục', unit:'Chiếc', type:'tang', before:10, delta:5, after:15, qdtk:'QD-2026-098', dateIso:'2026-08-10', date:'10/08/2026', nguoiBanHanh:'Nguyễn Văn C', note:'Điều chuyển về Dự phòng Cục', he:'Cục QLKTNVMM'},
+  {id:5, code:'0002', spmm:'Thẻ thông minh', loc:'Cơ yếu Đảng chính quyền — Dự phòng', unit:'Cái', type:'tang', before:150, delta:50, after:200, qdtk:'QD-2026-070', dateIso:'2026-09-02', date:'02/09/2026', nguoiBanHanh:'Lê Văn D', note:'Đệm điều chuyển nội bộ', he:'Cơ yếu Đảng chính quyền'}
+];
+function changeRowHtml(r, stt){
+  var spmmFull = r.code+' - '+r.spmm;
+  return '<tr><td>'+stt+'</td>' +
+    '<td style="padding-left:24px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+spmmFull+'">'+spmmFull+'</td>' +
+    '<td>'+r.loc+'</td><td>'+r.unit+'</td>' +
+    '<td>'+(r.type==='tang'?'Tăng':'Giảm')+'</td><td class="num">'+r.before+'</td>' +
+    '<td class="num">'+(r.delta>0?'+':'')+r.delta+'</td><td class="num">'+r.after+'</td>' +
+    '<td class="link-cell" onclick="showScreen(\'scr-lap\')">'+r.qdtk+'</td><td>'+r.date+'</td><td>'+r.nguoiBanHanh+'</td><td>'+(r.note||'')+'</td></tr>';
+}
+function changeGroupHeaderHtml(label){ return '<tr class="group-row"><td colspan="12">'+label+'</td></tr>'; }
+function changesFillFilterOptions(){
+  var spmmSel = document.getElementById('chgFilterSpmm'), locSel = document.getElementById('chgFilterLoc');
+  if(spmmSel.options.length>1) return; /* đã điền 1 lần, khỏi làm lại mỗi lần render */
+  var spmmSeen = {}, locSeen = {};
+  changeLedger.forEach(function(r){
+    var sk = r.code+' - '+r.spmm;
+    if(!spmmSeen[sk]){ spmmSeen[sk]=1; spmmSel.innerHTML += '<option value="'+r.code+'">'+sk+'</option>'; }
+    if(!locSeen[r.loc]){ locSeen[r.loc]=1; locSel.innerHTML += '<option value="'+r.loc.replace(/"/g,'&quot;')+'">'+r.loc+'</option>'; }
+  });
+}
+/* ===== Lọc "QĐTK liên quan" — dropdown tích chọn nhiều giá trị (giống fpick SPMM/Địa điểm) ===== */
+var chgQdtkOff = [];
+function chgQdtkValues(){
+  var seen={}, out=[];
+  changeLedger.forEach(function(r){ if(!seen[r.qdtk]){ seen[r.qdtk]=1; out.push(r.qdtk); } });
+  return out;
+}
+function renderChgQdtkList(){
+  var box = document.getElementById('fpickChgQdtkList');
+  if(!box || box.children.length) return; /* đã dựng 1 lần */
+  var vals = chgQdtkValues();
+  box.innerHTML = vals.length ? vals.map(function(v){
+    return '<label><input type="checkbox" checked onchange="toggleChgQdtkItem(\''+v.replace(/'/g,"\\'")+'\',this.checked)">'+v+'</label>';
+  }).join('') : '<span class="hint">Chưa có dữ liệu</span>';
+}
+function toggleChgQdtkItem(val, checked){
+  var i = chgQdtkOff.indexOf(val);
+  if(checked){ if(i>-1) chgQdtkOff.splice(i,1); }
+  else if(i===-1){ chgQdtkOff.push(val); }
+  updateChgQdtkLabel();
+  renderChangesTable();
+}
+function clearChgQdtkFPick(){
+  chgQdtkOff = chgQdtkValues().slice();
+  document.querySelectorAll('#fpickChgQdtkList input[type=checkbox]').forEach(function(c){ c.checked=false; });
+  updateChgQdtkLabel();
+  renderChangesTable();
+}
+function updateChgQdtkLabel(){
+  var total = chgQdtkValues().length, off = chgQdtkOff.length, sel = total-off;
+  var lbl = document.getElementById('fpickChgQdtkLabel');
+  if(lbl) lbl.textContent = off===0 ? ('Tất cả ('+total+')') : (sel+'/'+total);
+}
+function filterChgQdtkList(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('#fpickChgQdtkList label').forEach(function(l){
+    l.style.display = l.textContent.toLowerCase().indexOf(q)>-1 ? 'flex' : 'none';
+  });
+}
+function renderChangesTable(){
+  changesFillFilterOptions();
+  renderChgQdtkList();
+  var view = (document.getElementById('changesViewSwitch')||{}).value || 'flat';
+  var fSpmm = document.getElementById('chgFilterSpmm').value;
+  var fLoc = document.getElementById('chgFilterLoc').value;
+  var fType = document.getElementById('chgFilterType').value;
+  var rows = changeLedger.filter(function(r){
+    return (!fSpmm || r.code===fSpmm) && (!fLoc || r.loc===fLoc) && (!fType || r.type===fType) &&
+           chgQdtkOff.indexOf(r.qdtk)===-1;
+  }).sort(function(a,b){ return b.dateIso.localeCompare(a.dateIso) || a.id-b.id; });
+  var html = '', stt = 1;
+  if(!rows.length){
+    html = '<tr><td colspan="12" style="text-align:center;color:#8ca4c7;padding:16px">Không có dòng nào khớp bộ lọc</td></tr>';
+  } else if(view==='flat'){
+    rows.forEach(function(r){ html += changeRowHtml(r, stt++); });
+  } else {
+    var keyFn;
+    if(view==='he'){ keyFn = function(r){return r.he;}; }
+    else if(view==='spmm'){ keyFn = function(r){return r.code+' - '+r.spmm;}; }
+    else { keyFn = function(r){return r.qdtk;}; } /* qdtk */
+    var order = [], groups = {};
+    rows.forEach(function(r){
+      var k = keyFn(r);
+      if(!groups[k]){ groups[k]=[]; order.push(k); } /* order = thứ tự nhóm xuất hiện trước tiên = theo dòng mới nhất trước */
+      groups[k].push(r);
+    });
+    order.forEach(function(k){
+      html += changeGroupHeaderHtml(k);
+      groups[k].forEach(function(r){ html += changeRowHtml(r, stt++); });
+    });
+  }
+  document.getElementById('changesBody').innerHTML = html;
+}
+
+renderTable();
+renderChangesTable();
+/* Mở đúng màn theo #anchor trên URL (vd file.html#scr-lap) — khớp quy ước
+   {feature}-prototype.html#{slug} trong naming-conventions.md */
+(function(){
+  var hash = location.hash.replace('#','');
+  if(hash && document.getElementById(hash)){ showScreen(hash); }
+})();
+</script>
+
+    </div><!-- /content-scroll -->
+  </div><!-- /main-area -->
+</div><!-- /app-shell -->
+</body></html>

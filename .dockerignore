@@ -1,0 +1,11 @@
+.env
+.env.*
+.venv
+.git
+__pycache__
+**/__pycache__
+data
+projects
+documents-master
+tests
+*.zip

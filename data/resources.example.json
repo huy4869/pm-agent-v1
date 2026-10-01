@@ -1,0 +1,6 @@
+{
+  "resources": [
+    {"name": "tran huy", "aliases": ["huy"], "skills": ["backend", "python", "api", "sql"]},
+    {"name": "nam", "skills": ["frontend", "react", "typescript"]}
+  ]
+}

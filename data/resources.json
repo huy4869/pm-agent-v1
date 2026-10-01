@@ -1,0 +1,70 @@
+{
+  "resources": [
+    {
+      "name": "Cửu",
+      "role": "PM",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Huy",
+      "role": "PO",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Nguyệt",
+      "role": "BA",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Lâm",
+      "role": "Fullstack Developer",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Lịch",
+      "role": "Tech Lead",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Việt",
+      "role": "Fullstack Developer",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Quỳnh",
+      "role": "BA",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Hương",
+      "role": "BA",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Me",
+      "role": null,
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "V Anh",
+      "role": "Fullstack Developer",
+      "skills": [],
+      "aliases": []
+    },
+    {
+      "name": "Hằng",
+      "role": "Tester",
+      "skills": [],
+      "aliases": []
+    }
+  ]
+}

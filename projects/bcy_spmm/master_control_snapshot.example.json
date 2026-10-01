@@ -1,0 +1,8 @@
+[
+  {
+    "feature": "Phiếu đề nghị SPMM",
+    "ba": {"pic": "Quynhdtn17", "start": "", "due": "19/08/2026", "status": "Done"},
+    "dev": {"pic": "Lampt45", "start": "19/08/2026", "due": "25/08/2026", "status": "Done"},
+    "test": {"pic": "Hanglt102", "start": "26/08/2026", "due": "03/09/2026", "status": "Done"}
+  }
+]

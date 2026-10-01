@@ -1,0 +1,12 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+data/
+!data/
+data/*
+!data/resources.example.json
+!data/resources.json
+.env.local
