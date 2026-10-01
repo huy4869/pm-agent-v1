@@ -15,7 +15,7 @@ from app.redmine.collector import RedmineCollector
 from app.domain.project_state import build_project_state
 from app.metrics.project_metrics import calculate_project_metrics
 from app.time_utils import app_timezone, days_until
-from app.domain.statuses import is_done_status, is_pending_status
+from app.domain.statuses import is_active_status, is_done_status, is_pending_status
 from app.intelligence.redmine_delivery import build_project_delivery, build_version_delivery
 from app.intelligence.redmine_ai import analyze_redmine_snapshot
 from app.reports.api_daily import archive_api_snapshot
@@ -230,6 +230,7 @@ def _filter_issues(items: list[dict], filter_type: str | None, version_id: str |
         "blocking": lambda x: x.get("blocking", False),
         "near_due": lambda x: x["nearDue"],
         "open": lambda x: not x["done"],
+        "in_progress": lambda x: is_active_status(x.get("status")) and not x.get("done") and not x.get("pending"),
         "done": lambda x: x["done"],
     }
     predicate = predicates.get(filter_type)
